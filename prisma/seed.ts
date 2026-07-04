@@ -12,7 +12,7 @@ const destinations = [
     description: 'A vibrant coastal city with stunning architecture, world-class food, and beautiful beaches',
     budget: 'MEDIUM' as const,
     climate: 'Mediterranean',
-    tags: ['food', 'beaches', 'nightlife', 'culture'],
+    tags: ['city','food', 'beaches', 'nightlife', 'culture'],
   },
   {
     name: 'Iceland',
@@ -28,7 +28,7 @@ const destinations = [
     description: 'A city where ancient temples meet futuristic technology and incredible food',
     budget: 'HIGH' as const,
     climate: 'Temperate',
-    tags: ['food', 'culture', 'museums', 'nightlife'],
+    tags: ['city','food', 'culture', 'museums', 'nightlife'],
   },
   {
     name: 'Bali',
@@ -44,7 +44,7 @@ const destinations = [
     description: 'A fairy-tale city with medieval architecture, rich history, and vibrant nightlife',
     budget: 'LOW' as const,
     climate: 'Continental',
-    tags: ['culture', 'museums', 'food', 'nightlife'],
+    tags: ['city','culture', 'museums', 'food', 'nightlife'],
   },
   {
     name: 'New York',
@@ -52,7 +52,7 @@ const destinations = [
     description: 'The city that never sleeps — iconic skyline, world-class museums, and endless food',
     budget: 'HIGH' as const,
     climate: 'Temperate',
-    tags: ['nightlife', 'food', 'museums', 'culture'],
+    tags: ['city','nightlife', 'food', 'museums', 'culture'],
   },
 ]
 
