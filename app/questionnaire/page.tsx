@@ -188,8 +188,7 @@ export default function Home() {
           <button
             className="mr-4 bg-yellow-400 text-black font-semibold px-8 py-4 rounded-full hover:bg-yellow-300 transition"
             onClick={() => {
-              setAnswers({ ...answers, climate: "Arctic" });
-              setCurrentStep(5);
+              handleSubmit('Arctic')
             }}
           >
             Arctic❄️{" "}
@@ -197,8 +196,7 @@ export default function Home() {
           <button
             className="mr-4 bg-yellow-400 text-black font-semibold px-8 py-4 rounded-full hover:bg-yellow-300 transition"
             onClick={() => {
-              setAnswers({ ...answers, climate: "Tropical" });
-              setCurrentStep(5);
+              handleSubmit('Tropical')
             }}
           >
             Tropical🌴
@@ -206,8 +204,7 @@ export default function Home() {
           <button
             className="mr-4 bg-yellow-400 text-black font-semibold px-8 py-4 rounded-full hover:bg-yellow-300 transition"
             onClick={() => {
-              setAnswers({ ...answers, climate: "Mediterranean" });
-              setCurrentStep(5);
+              handleSubmit('Mediterranean')
             }}
           >
             Mediterranean☀️
@@ -215,8 +212,7 @@ export default function Home() {
           <button
             className="mr-4 bg-yellow-400 text-black font-semibold px-8 py-4 rounded-full hover:bg-yellow-300 transition"
             onClick={() => {
-              setAnswers({ ...answers, climate: "Continental" });
-              setCurrentStep(5);
+              handleSubmit('Continental')
             }}
           >
             Continental🍂{" "}
@@ -257,4 +253,16 @@ export default function Home() {
               onClick={()=> setCurrentStep(currentStep + 1)}>Next</button> */}
     </div>
   );
+
+  async function handleSubmit(selectedClimate: string){
+    const finalObject = { ...answers, climate: selectedClimate}  
+
+    const response = await fetch('/api/generate-itinerary', {
+      method: 'POST',
+      headers: {'Content-type': 'application/json'},
+      body: JSON.stringify(finalObject)
+    })
+    const data = await response.json()
+  }
 }
+
