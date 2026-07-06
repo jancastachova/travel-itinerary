@@ -1,7 +1,12 @@
 "use client";
 import { useState, useEffect } from "react";
+import { useRouter } from 'next/navigation'
+
 
 export default function Home() {
+  const router = useRouter()
+
+  
   const [currentStep, setCurrentStep] = useState(0);
   const [answers, setAnswers] = useState({
     days: 0,
@@ -263,6 +268,10 @@ export default function Home() {
       body: JSON.stringify(finalObject)
     })
     const data = await response.json()
+
+    localStorage.setItem('result', JSON.stringify(data))
+    router.push('/result')
+
   }
 }
 
