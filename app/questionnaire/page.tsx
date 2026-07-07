@@ -27,6 +27,10 @@ export default function Home() {
     console.log(answers);
   }, [answers]);
 
+  function goBack(){
+
+  }
+
   return (
     <div className="flex flex-row items-center justify-center min-h-screen">
       {currentStep === 0 && (
@@ -60,7 +64,7 @@ export default function Home() {
           <div className="w-full text-right mt-8">
             <button
               className="text-[14px] cursor-pointer bg-gray-200 text-black font-semibold px-5 py-2.5 rounded-full hover:bg-gray-300 transition"
-              onClick={() => setCurrentStep(currentStep - 1)}
+              onClick={() => router.push("/")}
             >
               &lt; previous
             </button>
@@ -130,7 +134,6 @@ export default function Home() {
               City🏙️
             </button>
             <button
-              className="mr-4 bg-yellow-400 text-black font-semibold px-8 py-4 rounded-full hover:bg-yellow-300 transition"
               onClick={() => {
                 setAnswers({ ...answers, preferredTags: ["nature"] });
                 setCurrentStep(3);
@@ -156,13 +159,11 @@ export default function Home() {
           <div>
             <h1 className="text-4xl font-bold mb-4">What do you enjoy?</h1>
 
-            {/* Přidali jsme obal s flexem, aby položky stály vedle sebe a nebyly roztáhlé */}
             <div className="flex flex-wrap gap-3 mb-6 w-full">
               {activities.map((a) => {
                 const isChecked = answers.preferredTags.includes(a);
 
                 return (
-                  /* Změněno z <div> na <label> + přidáno w-fit a border/bg podle stavu */
                   <label
                     key={a}
                     className={`w-fit cursor-pointer select-none font-semibold px-6 py-3 rounded-full transition text-sm uppercase tracking-wider border-4
@@ -174,7 +175,7 @@ export default function Home() {
                   >
                     <input
                       type="checkbox"
-                      className="sr-only" // sr-only ten prázdný prostor po appearance-none úplně vymaže
+                      className="sr-only"
                       id={a}
                       value={a}
                       checked={isChecked}
@@ -231,25 +232,25 @@ export default function Home() {
             {/* Tlačítka vedle sebe (flex-row), která se na mobilu dají pod sebe */}
             <div className="flex flex-wrap gap-3 w-full mb-8">
               <button
-                className="bg-yellow-400 text-black font-semibold px-6 py-3 rounded-full hover:bg-yellow-300 transition text-sm whitespace-nowrap"
+                className="bg-yellow-400 text-black font-semibold px-6 py-3 rounded-full hover:bg-yellow-300 transition whitespace-nowrap"
                 onClick={() => handleSubmit("Arctic")}
               >
                 Arctic❄️
               </button>
               <button
-                className="bg-yellow-400 text-black font-semibold px-6 py-3 rounded-full hover:bg-yellow-300 transition text-sm whitespace-nowrap"
+                className="bg-yellow-400 text-black font-semibold px-6 py-3 rounded-full hover:bg-yellow-300 transition whitespace-nowrap"
                 onClick={() => handleSubmit("Tropical")}
               >
                 Tropical🌴
               </button>
               <button
-                className="bg-yellow-400 text-black font-semibold px-6 py-3 rounded-full hover:bg-yellow-300 transition text-sm whitespace-nowrap"
+                className="bg-yellow-400 text-black font-semibold px-6 py-3 rounded-full hover:bg-yellow-300 transition whitespace-nowrap"
                 onClick={() => handleSubmit("Mediterranean")}
               >
                 Mediterranean☀️
               </button>
               <button
-                className="bg-yellow-400 text-black font-semibold px-6 py-3 rounded-full hover:bg-yellow-300 transition text-sm whitespace-nowrap"
+                className="bg-yellow-400 text-black font-semibold px-6 py-3 rounded-full hover:bg-yellow-300 transition whitespace-nowrap"
                 onClick={() => handleSubmit("Continental")}
               >
                 Continental🍂
@@ -268,6 +269,7 @@ export default function Home() {
           </div>
         </div>
       )}
+
 
       {/* {currentStep === 5 && (
         <div>
