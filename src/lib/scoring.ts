@@ -44,9 +44,13 @@ function calculateScore(userAnswers: UserAnswers, destination: DestinationWithTa
         if (hasTag) score += 2
     }
 
+    if(destination.climate === userAnswers.climate){
+        score+=3
+    }
+
     if(destination.budget === userAnswers.budget){
         score+=3
-    }else if(destination.budget === 'HIGH' && userAnswers.budget === 'LOW') {
+    }else if( (destination.budget === 'HIGH' && userAnswers.budget === 'LOW') || (destination.budget === 'LOW' && userAnswers.budget === 'HIGH') ) {
         score=-1
     } 
     return score;

@@ -27,10 +27,6 @@ export default function Home() {
     console.log(answers);
   }, [answers]);
 
-  function goBack(){
-
-  }
-
   return (
     <div className="flex flex-row items-center justify-center min-h-screen">
       {currentStep === 0 && (
@@ -134,6 +130,7 @@ export default function Home() {
               City🏙️
             </button>
             <button
+              className="mr-4 bg-yellow-400 text-black font-semibold px-8 py-4 rounded-full hover:bg-yellow-300 transition"
               onClick={() => {
                 setAnswers({ ...answers, preferredTags: ["nature"] });
                 setCurrentStep(3);
@@ -243,6 +240,14 @@ export default function Home() {
               >
                 Tropical🌴
               </button>
+
+              <button
+                className="bg-yellow-400 text-black font-semibold px-6 py-3 rounded-full hover:bg-yellow-300 transition whitespace-nowrap"
+                onClick={() => handleSubmit("Temperate")}
+              >
+                Temperate🌳
+              </button>
+
               <button
                 className="bg-yellow-400 text-black font-semibold px-6 py-3 rounded-full hover:bg-yellow-300 transition whitespace-nowrap"
                 onClick={() => handleSubmit("Mediterranean")}
@@ -258,7 +263,6 @@ export default function Home() {
             </div>
           </div>
 
-          {/* Tlačítko zpět zarovnané stejně jako v kroku 0 */}
           <div className="w-full text-right mt-4">
             <button
               className="text-[14px] cursor-pointer bg-gray-200 text-black font-semibold px-5 py-2.5 rounded-full hover:bg-gray-300 transition"
