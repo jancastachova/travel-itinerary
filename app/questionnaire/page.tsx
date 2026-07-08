@@ -226,7 +226,6 @@ export default function Home() {
           <div className="w-full">
             <h1 className="text-4xl font-bold mb-6 text-left">What climate?</h1>
 
-            {/* Tlačítka vedle sebe (flex-row), která se na mobilu dají pod sebe */}
             <div className="flex flex-wrap gap-3 w-full mb-8">
               <button
                 className="bg-yellow-400 text-black font-semibold px-6 py-3 rounded-full hover:bg-yellow-300 transition whitespace-nowrap"
