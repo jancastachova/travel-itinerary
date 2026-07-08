@@ -2,7 +2,13 @@
 import Link from "next/link";
 
 export default function Result() {
-  const data = JSON.parse(localStorage.getItem("result") || "{}");
+  
+  
+  const data = typeof window !== "undefined" 
+    ? JSON.parse(localStorage.getItem("result") || "{}")
+    : {};
+  
+  
   const destination = data.destination;
   const image = `/images/${destination.name?.toLowerCase()}.jpg`;
   const tagsArray = data.destination.tags;
