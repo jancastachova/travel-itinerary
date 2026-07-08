@@ -1,4 +1,4 @@
-This is web application built with [Next.js](https://nextjs.org). This application lets user enter information in questionnaire page, resulting in showing the ideal destination. -> in later versions the whole itinerary.
+This is web application built with [Next.js](https://nextjs.org). The application lets user enter information in questionnaire page, resulting in showing the ideal destination -> in later versions the whole itinerary.
 
 ## Live demo link
 
@@ -24,7 +24,7 @@ This is web application built with [Next.js](https://nextjs.org). This applicati
 
  ## Architecture
 The core of this app is built on a custom scoring algorithm that matches user preferences to destinations stored in the database.
-In MPV version, it simply loads database and compares the relative object properties with user preferences taken from the questionnaire. The function scoreDestination() will simply return the destination with the highest score.
+In this MPV version, it simply loads database and compares the relative object properties with user preferences taken from the questionnaire. The function scoreDestination() will simply return the destination with the highest score.
 
 After user finishes the questionnaire, API route is called, directing to the scoring algorithm, which gives the result and displays it on final result page. 
 
