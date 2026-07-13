@@ -2,14 +2,24 @@
 import Link from "next/link";
 
 export default function Result() {
-  
-  const data = typeof window !== "undefined" 
-    ? JSON.parse(localStorage.getItem("result") || "{}")
-    : {};
-  
+  const data =
+    typeof window !== "undefined"
+      ? JSON.parse(localStorage.getItem("result") || "{}")
+      : {};
+  const days =
+    typeof window !== "undefined"
+      ? JSON.parse(localStorage.getItem("days") || "0")
+      : 0;
+
   const destination = data?.destination;
-  const image = destination?.name ? `/images/${destination.name.toLowerCase()}.jpg` : '';
+  const image = destination?.name
+    ? `/images/${destination.name.toLowerCase()}.jpg`
+    : "";
   const tagsArray = data?.destination?.tags || [];
+  const daysArray = Array.from({ length: days || 0 }, (_, i) => ({
+    day: i + 1,
+    activity: tagsArray[i % tagsArray.length]?.name,
+  }));
 
   return (
     <div
@@ -41,7 +51,7 @@ export default function Result() {
 
       <div className="mt-20 flex flex-col items-center gap-1 text-gray-600 font-medium tracking-wide">
         <p className=" text-xs text-gray-400"> {destination?.description}</p>
-        
+
         {destination?.climate && (
           <p className=" text-xs text-gray-400">
             {" "}
@@ -60,6 +70,16 @@ export default function Result() {
             </span>
           ))}
         </p>
+
+        {daysArray.map((item) => (
+          <div key={item.day}>
+            <p>
+              Day {item.day}: {item.activity}
+            </p>
+          </div>
+        ))}
+
+
       </div>
 
       <div className="mt-auto">

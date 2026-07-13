@@ -310,6 +310,7 @@ export default function Home() {
     });
     const data = await response.json();
 
+    localStorage.setItem("days", JSON.stringify(answers.days));
     localStorage.setItem("result", JSON.stringify(data));
     router.push("/result");
   }
