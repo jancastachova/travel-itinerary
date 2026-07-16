@@ -21,6 +21,11 @@ export default function Home() {
     "hiking",
     "adventure",
     "museums",
+    "architecture",
+    "shopping",
+    "relaxation",
+    "romance",
+    "wellness"
   ];
 
   useEffect(() => {

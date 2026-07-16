@@ -68,15 +68,15 @@ export default function Result() {
         )}
       </div>
 
-      <div className="w-full my-4 overflow-y-auto max-h-[250px]">
+      <div className="w-full my-4 overflow-y-auto max-h-[300px]">
         <table className="w-full table-fixed border-separate border-spacing-y-2 border-spacing-x-3">
           <tbody>
             {daysArray.map((item) => (
               <tr key={item.day}>
-                <td className="w-[20%] border border-gray-300 bg-yellow-400 bg-white p-3 rounded-lg font-semibold text-gray-700 align-top text-sm">
+                <td className="w-[20%] border border-yellow-300 bg-yellow-400 bg-white p-3 rounded-lg font-semibold text-gray-700 align-top text-sm">
                   Day {item.day}:
                 </td>
-                <td className="w-[80%] border border-gray-300 p-3 rounded-lg text-gray-600 align-top text-sm break-words">
+                <td className="w-[80%] border border-yellow-300 p-3 rounded-lg text-gray-600 align-top text-sm break-words">
                   {item.activity}
                 </td>
               </tr>
