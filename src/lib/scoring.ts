@@ -39,13 +39,36 @@ export function scoreDestinations(
 function calculateScore(userAnswers: UserAnswers, destination: DestinationWithTags): number{
     let score = 0
 
+    const lifestyleTags = ['solo', 'pair', 'friends', 'family']
+
     for(const preferredTag of userAnswers.preferredTags){
         const hasTag = destination.tags.some(tag=>tag.name === preferredTag) //.some function =>at least one destination
-        if (hasTag) score += 2
+        
+        
+        if (hasTag) {
+            if(lifestyleTags.includes(preferredTag)){
+                score += 4
+            }else{
+                score+=2
+            }
+            
+        }
+
+        
     }
 
     if(destination.climate === userAnswers.climate){
         score+=3
+    }else {
+        const incompatible: Record<string, string[]> ={
+            'Arctic': ['Tropical', 'Mediterranean'],
+            'Tropical': ['Arctic', 'Continental'],
+            'Mediterranean': ['Arctic'],
+            'Continental': ['Tropical'],
+        }
+        if(incompatible[destination.climate]?.includes(userAnswers.climate ?? '')) {
+            score = -1
+        }
     }
 
     if(destination.budget === userAnswers.budget){

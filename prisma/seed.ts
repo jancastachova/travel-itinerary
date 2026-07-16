@@ -13,7 +13,7 @@ const destinations = [
     description: 'A vibrant coastal city with stunning architecture, world-class food, and beautiful beaches',
     budget: 'MEDIUM' as const,
     climate: 'Mediterranean',
-    tags: ['city', 'food', 'beaches', 'nightlife', 'culture', 'architecture'],
+    tags: ['friends', 'solo', 'city', 'food', 'beaches', 'nightlife', 'culture', 'architecture'],
   },
   {
     name: 'Iceland',
@@ -21,7 +21,7 @@ const destinations = [
     description: 'A dramatic landscape of volcanoes, geysers, and the northern lights',
     budget: 'HIGH' as const,
     climate: 'Arctic',
-    tags: ['nature', 'hiking', 'adventure'],
+    tags: ['friends', 'solo', 'pair', 'nature', 'hiking', 'adventure'],
   },
   {
     name: 'Tokyo',
@@ -29,7 +29,7 @@ const destinations = [
     description: 'A city where ancient temples meet futuristic technology and incredible food',
     budget: 'HIGH' as const,
     climate: 'Temperate',
-    tags: ['city', 'food', 'culture', 'museums', 'nightlife', 'shopping'],
+    tags: ['solo', 'pair', 'friends', 'city', 'food', 'culture', 'museums', 'nightlife', 'shopping'],
   },
   {
     name: 'Bali',
@@ -37,7 +37,7 @@ const destinations = [
     description: 'A tropical paradise with lush rice terraces, temples, and stunning beaches',
     budget: 'LOW' as const,
     climate: 'Tropical',
-    tags: ['beaches', 'nature', 'hiking', 'adventure', 'wellness', 'relaxation'],
+    tags: ['family', 'solo', 'pair', 'beaches', 'nature', 'hiking', 'adventure', 'wellness', 'relaxation'],
   },
   {
     name: 'Prague',
@@ -45,7 +45,7 @@ const destinations = [
     description: 'A fairy-tale city with medieval architecture, rich history, and vibrant nightlife',
     budget: 'LOW' as const,
     climate: 'Continental',
-    tags: ['city', 'culture', 'museums', 'food', 'nightlife', 'architecture', 'romance'],
+    tags: ['friends', 'solo', 'pair', 'city', 'culture', 'museums', 'food', 'nightlife', 'architecture', 'romance'],
   },
   {
     name: 'New York',
@@ -53,7 +53,7 @@ const destinations = [
     description: 'The city that never sleeps — iconic skyline, world-class museums, and endless food',
     budget: 'HIGH' as const,
     climate: 'Temperate',
-    tags: ['city', 'nightlife', 'food', 'museums', 'culture', 'shopping', 'architecture'],
+    tags: ['friends', 'pair', 'family', 'solo', 'city', 'nightlife', 'food', 'museums', 'culture', 'shopping', 'architecture'],
   },
   {
     name: 'Mykonos',
@@ -61,15 +61,15 @@ const destinations = [
     description: 'A glamorous Greek island known for its stunning beaches, vibrant nightlife, and iconic whitewashed architecture',
     budget: 'HIGH' as const,
     climate: 'Mediterranean',
-    tags: ['beaches', 'nightlife', 'food', 'culture', 'nature', 'architecture', 'relaxation', 'romance'],
+    tags: ['friends', 'pair', 'beaches', 'nightlife', 'food', 'culture', 'nature', 'architecture', 'relaxation', 'romance'],
   },
   {
     name: 'Paris',
     country: 'France',
-    description: 'The city of love - iconic landmarks, world-class cuisine, art museums, and unmatched romantic atmosphere',
+    description: 'The city of love — iconic landmarks, world-class cuisine, art museums, and unmatched romantic atmosphere',
     budget: 'HIGH' as const,
     climate: 'Continental',
-    tags: ['city', 'nightlife', 'food', 'museums', 'culture', 'architecture', 'romance', 'shopping'],
+    tags: ['friends', 'pair', 'family', 'city', 'nightlife', 'food', 'museums', 'culture', 'architecture', 'romance', 'shopping'],
   },
   {
     name: 'Thailand',
@@ -77,7 +77,7 @@ const destinations = [
     description: 'A tropical paradise with golden temples, vibrant street food, and stunning island beaches',
     budget: 'LOW' as const,
     climate: 'Tropical',
-    tags: ['beaches', 'food', 'culture', 'adventure', 'nature', 'shopping'],
+    tags: ['family', 'solo', 'pair', 'beaches', 'food', 'culture', 'adventure', 'nature', 'shopping'],
   },
   {
     name: 'Lisbon',
@@ -85,7 +85,7 @@ const destinations = [
     description: 'A charming coastal capital with colorful tiles, hilltop viewpoints, and a buzzing food scene',
     budget: 'LOW' as const,
     climate: 'Mediterranean',
-    tags: ['nightlife', 'food', 'culture', 'architecture', 'city'],
+    tags: ['friends', 'pair', 'solo', 'nightlife', 'food', 'culture', 'architecture', 'city'],
   },
   {
     name: 'Marrakech',
@@ -93,7 +93,7 @@ const destinations = [
     description: 'A sensory explosion of souks, spices, riads, and stunning desert landscapes',
     budget: 'MEDIUM' as const,
     climate: 'Continental',
-    tags: ['culture', 'food', 'adventure', 'architecture', 'shopping'],
+    tags: ['friends', 'solo', 'pair', 'culture', 'food', 'adventure', 'architecture', 'shopping'],
   },
   {
     name: 'Athens',
@@ -101,7 +101,7 @@ const destinations = [
     description: 'The cradle of western civilization — ancient ruins, vibrant markets, and Mediterranean charm',
     budget: 'MEDIUM' as const,
     climate: 'Mediterranean',
-    tags: ['culture', 'museums', 'food', 'architecture', 'city'],
+    tags: ['friends', 'pair', 'culture', 'museums', 'food', 'architecture', 'city'],
   },
   {
     name: 'Switzerland',
@@ -109,7 +109,7 @@ const destinations = [
     description: 'Pristine alpine landscapes, charming villages, and world-class skiing and hiking',
     budget: 'HIGH' as const,
     climate: 'Continental',
-    tags: ['hiking', 'nature', 'adventure', 'wellness'],
+    tags: ['friends', 'family', 'pair', 'solo', 'hiking', 'nature', 'adventure', 'wellness'],
   },
   {
     name: 'Norway',
@@ -117,7 +117,7 @@ const destinations = [
     description: 'Dramatic fjords, northern lights, and untouched wilderness at the edge of the world',
     budget: 'HIGH' as const,
     climate: 'Arctic',
-    tags: ['nature', 'hiking', 'adventure'],
+    tags: ['friends', 'solo', 'pair', 'nature', 'hiking', 'adventure'],
   },
 ]
 
