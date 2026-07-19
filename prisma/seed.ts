@@ -156,7 +156,7 @@ async function main() {
         await prisma.destination.upsert({
             where: { name: destination.name },
             update: {
-                isCountry: destination.isCountry  // ← přidej toto
+                isCountry: destination.isCountry 
             },
             create: {
             name: destination.name,
