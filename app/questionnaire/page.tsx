@@ -11,6 +11,7 @@ export default function Home() {
     budget: "",
     preferredTags: [] as string[],
     climate: "",
+    isCountry: false
   });
   const [days, setDays] = useState<number>(5);
   const activities = [
@@ -19,11 +20,9 @@ export default function Home() {
     "nighlife",
     "culture",
     "hiking",
-    "adventure",
     "museums",
     "architecture",
     "shopping",
-    "relaxation",
     "romance",
     "wellness"
   ];
@@ -84,39 +83,39 @@ export default function Home() {
             <button
               className="mr-4 bg-yellow-400 text-black font-semibold px-8 py-4 rounded-full hover:bg-yellow-300 transition"
               onClick={() => {
-                setAnswers({ ...answers, preferredTags: ["pair"] });
+                setAnswers({ ...answers, preferredTags: [...answers.preferredTags, 'pair'] })
                 setCurrentStep(2);
               }}
             >
-              Pair
+              Pair👩‍❤️‍👨
             </button>
             <button
               className="mr-4 bg-yellow-400 text-black font-semibold px-8 py-4 rounded-full hover:bg-yellow-300 transition"
               onClick={() => {
-                setAnswers({ ...answers, preferredTags: ["family"] });
+                setAnswers({ ...answers, preferredTags: [...answers.preferredTags, 'family'] })
                 setCurrentStep(2);
               }}
             >
-              Family
+              Family👨‍👩‍👧‍👦
             </button>
             <button
               className="mr-4 bg-yellow-400 text-black font-semibold px-8 py-4 rounded-full hover:bg-yellow-300 transition"
               onClick={() => {
-                setAnswers({ ...answers, preferredTags: ["friends"] });
+                setAnswers({ ...answers, preferredTags: [...answers.preferredTags, 'friends'] })
                 setCurrentStep(2);
               }}
             >
-              Friends
+              Friends🙌
             </button>
 
             <button
               className="mr-4 bg-yellow-400 text-black font-semibold px-8 py-4 rounded-full hover:bg-yellow-300 transition"
               onClick={() => {
-                setAnswers({ ...answers, preferredTags: ["solo"] });
+                setAnswers({ ...answers, preferredTags: [...answers.preferredTags, 'solo'] })
                 setCurrentStep(2);
               }}
             >
-              Solo
+              Solo🚶
             </button>
           </div>
 
@@ -130,40 +129,40 @@ export default function Home() {
           </div>
         </div>
       )}
-      
-      
-      
+
       {currentStep === 2 && (
         <div className="w-full max-w-2xl border-[6px] border-yellow-400 p-10 px-16 rounded-2xl shadow-2xl flex flex-col justify-between bg-white">
           <div className="w-full">
-            <h1 className="text-4xl font-bold mb-4">What's your budget?</h1>
+            <h1 className="text-4xl font-bold mb-4">
+              What kind of holiday?
+            </h1>
 
             <button
               className="mr-4 bg-yellow-400 text-black font-semibold px-8 py-4 rounded-full hover:bg-yellow-300 transition"
               onClick={() => {
-                setAnswers({ ...answers, budget: "HIGH" });
+                setAnswers({ ...answers, preferredTags: [...answers.preferredTags, 'relaxation'] })
                 setCurrentStep(3);
               }}
             >
-              High💰
+              Relaxation
             </button>
             <button
               className="mr-4 bg-yellow-400 text-black font-semibold px-8 py-4 rounded-full hover:bg-yellow-300 transition"
               onClick={() => {
-                setAnswers({ ...answers, budget: "MEDIUM" });
+                setAnswers({ ...answers, preferredTags: [...answers.preferredTags, 'sightseeing'] })
                 setCurrentStep(3);
               }}
             >
-              Medium💵
+              Sightseeing
             </button>
             <button
               className="mr-4 bg-yellow-400 text-black font-semibold px-8 py-4 rounded-full hover:bg-yellow-300 transition"
               onClick={() => {
-                setAnswers({ ...answers, budget: "LOW" });
+                setAnswers({ ...answers, preferredTags: [...answers.preferredTags, 'adventure'] })
                 setCurrentStep(3);
               }}
             >
-              Low🪙
+              Adventure
             </button>
           </div>
 
@@ -182,26 +181,26 @@ export default function Home() {
         <div className="w-full max-w-2xl border-[6px] border-yellow-400 p-10 px-16 rounded-2xl shadow-2xl flex flex-col justify-between bg-white">
           <div className="w-full">
             <h1 className="text-4xl font-bold mb-4">
-              Do you prefer city or nature?
+              Do you prefer to stay in one place or explore a whole country?
             </h1>
 
             <button
               className="mr-4 bg-yellow-400 text-black font-semibold px-8 py-4 rounded-full hover:bg-yellow-300 transition"
               onClick={() => {
-                setAnswers({ ...answers, preferredTags: ["city"] });
+                setAnswers({ ...answers, isCountry:false });
                 setCurrentStep(4);
               }}
             >
-              City🏙️
+              Stay in one place
             </button>
             <button
               className="mr-4 bg-yellow-400 text-black font-semibold px-8 py-4 rounded-full hover:bg-yellow-300 transition"
               onClick={() => {
-                setAnswers({ ...answers, preferredTags: ["nature"] });
+                setAnswers({ ...answers, isCountry: true });
                 setCurrentStep(4);
               }}
             >
-              Nature🏔️
+              Explore
             </button>
           </div>
 
@@ -217,6 +216,98 @@ export default function Home() {
       )}
 
       {currentStep === 4 && (
+        <div className="w-full max-w-2xl border-[6px] border-yellow-400 p-10 px-16 rounded-2xl shadow-2xl flex flex-col justify-between bg-white">
+          <div className="w-full">
+            <h1 className="text-4xl font-bold mb-4">What's your budget?</h1>
+
+            <button
+              className="mr-4 bg-yellow-400 text-black font-semibold px-8 py-4 rounded-full hover:bg-yellow-300 transition"
+              onClick={() => {
+                setAnswers({ ...answers, budget: "HIGH" });
+                setCurrentStep(5);
+              }}
+            >
+              High💰
+            </button>
+            <button
+              className="mr-4 bg-yellow-400 text-black font-semibold px-8 py-4 rounded-full hover:bg-yellow-300 transition"
+              onClick={() => {
+                setAnswers({ ...answers, budget: "MEDIUM" });
+                setCurrentStep(5);
+              }}
+            >
+              Medium💵
+            </button>
+            <button
+              className="mr-4 bg-yellow-400 text-black font-semibold px-8 py-4 rounded-full hover:bg-yellow-300 transition"
+              onClick={() => {
+                setAnswers({ ...answers, budget: "LOW" });
+                setCurrentStep(5);
+              }}
+            >
+              Low🪙
+            </button>
+          </div>
+
+          <div className="w-full text-right mt-8">
+            <button
+              className="text-[14px] cursor-pointer bg-gray-200 text-black font-semibold px-5 py-2.5 rounded-full hover:bg-gray-300 transition"
+              onClick={() => setCurrentStep(currentStep - 1)}
+            >
+              &lt; previous
+            </button>
+          </div>
+        </div>
+      )}
+
+      {currentStep === 5 && (
+        <div className="w-full max-w-2xl border-[6px] border-yellow-400 p-10 px-16 rounded-2xl shadow-2xl flex flex-col justify-between bg-white">
+          <div className="w-full">
+            <h1 className="text-4xl font-bold mb-4">
+              Do you prefer city or nature?
+            </h1>
+
+            <button
+              className="mr-4 bg-yellow-400 text-black font-semibold px-8 py-4 rounded-full hover:bg-yellow-300 transition"
+              onClick={() => {
+                setAnswers({ ...answers, preferredTags: [...answers.preferredTags, 'city'] })
+                setCurrentStep(6);
+              }}
+            >
+              City🏙️
+            </button>
+            <button
+              className="mr-4 bg-yellow-400 text-black font-semibold px-8 py-4 rounded-full hover:bg-yellow-300 transition"
+              onClick={() => {
+                setAnswers({ ...answers, preferredTags: [...answers.preferredTags, 'nature'] })
+                setCurrentStep(6);
+              }}
+            >
+              Nature🏔️
+            </button>
+            <button
+              className="mr-4 bg-yellow-400 text-black font-semibold px-8 py-4 rounded-full hover:bg-yellow-300 transition"
+              onClick={() => {
+                setAnswers({ ...answers, preferredTags: [...answers.preferredTags, 'nature', 'city'] })
+                setCurrentStep(6);
+              }}
+            >
+              I don't mind any
+            </button>
+          </div>
+
+          <div className="w-full text-right mt-8">
+            <button
+              className="text-[14px] cursor-pointer bg-gray-200 text-black font-semibold px-5 py-2.5 rounded-full hover:bg-gray-300 transition"
+              onClick={() => setCurrentStep(currentStep - 1)}
+            >
+              &lt; previous
+            </button>
+          </div>
+        </div>
+      )}
+
+      {currentStep === 6 && (
         <div className="w-full max-w-2xl border-[6px] border-yellow-400 p-10 px-16 rounded-2xl shadow-2xl flex flex-col justify-between bg-white">
           <div>
             <h1 className="text-4xl font-bold mb-4">What do you enjoy?</h1>
@@ -266,7 +357,7 @@ export default function Home() {
               
               <button
                 className="mr-4 bg-yellow-400 text-black font-semibold px-8 py-4 rounded-full hover:bg-yellow-300 transition"
-                onClick={() => setCurrentStep(5)}
+                onClick={() => setCurrentStep(7)}
               >
                 Next
               </button>
@@ -286,7 +377,7 @@ export default function Home() {
         </div>
       )}
 
-      {currentStep === 5 && (
+      {currentStep === 7 && (
         <div className="w-full max-w-2xl border-[6px] border-yellow-400 p-10 px-16 rounded-2xl shadow-2xl flex flex-col justify-between bg-white">
           <div className="w-full">
             <h1 className="text-4xl font-bold mb-6 text-left">What climate?</h1>
@@ -367,6 +458,7 @@ export default function Home() {
 
   async function handleSubmit(selectedClimate: string) {
     const finalObject = { ...answers, climate: selectedClimate };
+    console.log('Sending to API:', finalObject) 
 
     const response = await fetch("/api/generate-itinerary", {
       method: "POST",

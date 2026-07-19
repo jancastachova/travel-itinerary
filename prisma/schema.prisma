@@ -20,6 +20,7 @@ model Destination {
   climate     String
   tags        Tag[]
   createdAt   DateTime @default(now())
+  isCountry   Boolean @default(false)
 }
 
 model Tag {
