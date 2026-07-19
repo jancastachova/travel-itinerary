@@ -11,6 +11,7 @@ export default function Home() {
     budget: "",
     preferredTags: [] as string[],
     climate: "",
+    isCountry: false,
   });
   const [days, setDays] = useState<number>(5);
   const activities = [
@@ -19,8 +20,11 @@ export default function Home() {
     "nighlife",
     "culture",
     "hiking",
-    "adventure",
     "museums",
+    "architecture",
+    "shopping",
+    "romance",
+    "wellness",
   ];
 
   useEffect(() => {
@@ -71,13 +75,173 @@ export default function Home() {
       {currentStep === 1 && (
         <div className="w-full max-w-2xl border-[6px] border-yellow-400 p-10 px-16 rounded-2xl shadow-2xl flex flex-col justify-between bg-white">
           <div className="w-full">
+            <h1 className="text-4xl font-bold mb-4">Who do you travel with?</h1>
+            <div className="flex flex-wrap gap-3 w-full mb-8">
+              <button
+                className="mr-4 bg-yellow-400 text-black font-semibold px-8 py-4 rounded-full hover:bg-yellow-300 transition"
+                onClick={() => {
+                  setAnswers({
+                    ...answers,
+                    preferredTags: [...answers.preferredTags, "pair"],
+                  });
+                  setCurrentStep(2);
+                }}
+              >
+                Pair👩‍❤️‍👨
+              </button>
+              <button
+                className="mr-4 bg-yellow-400 text-black font-semibold px-8 py-4 rounded-full hover:bg-yellow-300 transition"
+                onClick={() => {
+                  setAnswers({
+                    ...answers,
+                    preferredTags: [...answers.preferredTags, "family"],
+                  });
+                  setCurrentStep(2);
+                }}
+              >
+                Family👨‍👩‍👧‍👦
+              </button>
+              <button
+                className="mr-4 bg-yellow-400 text-black font-semibold px-8 py-4 rounded-full hover:bg-yellow-300 transition"
+                onClick={() => {
+                  setAnswers({
+                    ...answers,
+                    preferredTags: [...answers.preferredTags, "friends"],
+                  });
+                  setCurrentStep(2);
+                }}
+              >
+                Friends🙌
+              </button>
+
+              <button
+                className="mr-4 bg-yellow-400 text-black font-semibold px-8 py-4 rounded-full hover:bg-yellow-300 transition"
+                onClick={() => {
+                  setAnswers({
+                    ...answers,
+                    preferredTags: [...answers.preferredTags, "solo"],
+                  });
+                  setCurrentStep(2);
+                }}
+              >
+                Solo🚶
+              </button>
+            </div>
+          </div>
+
+          <div className="w-full text-right mt-8">
+            <button
+              className="text-[14px] cursor-pointer bg-gray-200 text-black font-semibold px-5 py-2.5 rounded-full hover:bg-gray-300 transition"
+              onClick={() => setCurrentStep(currentStep - 1)}
+            >
+              &lt; previous
+            </button>
+          </div>
+        </div>
+      )}
+
+      {currentStep === 2 && (
+        <div className="w-full max-w-2xl border-[6px] border-yellow-400 p-10 px-16 rounded-2xl shadow-2xl flex flex-col justify-between bg-white">
+          <div className="w-full">
+            <h1 className="text-4xl font-bold mb-4">What kind of holiday?</h1>
+            <div className="flex flex-wrap gap-3 w-full mb-8">
+              <button
+                className="mr-4 bg-yellow-400 text-black font-semibold px-8 py-4 rounded-full hover:bg-yellow-300 transition"
+                onClick={() => {
+                  setAnswers({
+                    ...answers,
+                    preferredTags: [...answers.preferredTags, "relaxation"],
+                  });
+                  setCurrentStep(3);
+                }}
+              >
+                Relaxation💆‍♀️
+              </button>
+              <button
+                className="mr-4 bg-yellow-400 text-black font-semibold px-8 py-4 rounded-full hover:bg-yellow-300 transition"
+                onClick={() => {
+                  setAnswers({
+                    ...answers,
+                    preferredTags: [...answers.preferredTags, "sightseeing"],
+                  });
+                  setCurrentStep(3);
+                }}
+              >
+                Sightseeing📸
+              </button>
+              <button
+                className="mr-4 bg-yellow-400 text-black font-semibold px-8 py-4 rounded-full hover:bg-yellow-300 transition"
+                onClick={() => {
+                  setAnswers({
+                    ...answers,
+                    preferredTags: [...answers.preferredTags, "adventure"],
+                  });
+                  setCurrentStep(3);
+                }}
+              >
+                Adventure🤠
+              </button>
+            </div>
+          </div>
+          <div className="w-full text-right mt-8">
+            <button
+              className="text-[14px] cursor-pointer bg-gray-200 text-black font-semibold px-5 py-2.5 rounded-full hover:bg-gray-300 transition"
+              onClick={() => setCurrentStep(currentStep - 1)}
+            >
+              &lt; previous
+            </button>
+          </div>
+        </div>
+      )}
+
+      {currentStep === 3 && (
+        <div className="w-full max-w-2xl border-[6px] border-yellow-400 p-10 px-16 rounded-2xl shadow-2xl flex flex-col justify-between bg-white">
+          <div className="w-full">
+            <h1 className="text-4xl font-bold mb-4">
+              Do you prefer to stay in one place or explore a whole country?
+            </h1>
+
+            <button
+              className="mr-4 bg-yellow-400 text-black font-semibold px-8 py-4 rounded-full hover:bg-yellow-300 transition"
+              onClick={() => {
+                setAnswers({ ...answers, isCountry: false });
+                setCurrentStep(4);
+              }}
+            >
+              Stay in one place
+            </button>
+            <button
+              className="mr-4 bg-yellow-400 text-black font-semibold px-8 py-4 rounded-full hover:bg-yellow-300 transition"
+              onClick={() => {
+                setAnswers({ ...answers, isCountry: true });
+                setCurrentStep(4);
+              }}
+            >
+              Explore
+            </button>
+          </div>
+
+          <div className="w-full text-right mt-8">
+            <button
+              className="text-[14px] cursor-pointer bg-gray-200 text-black font-semibold px-5 py-2.5 rounded-full hover:bg-gray-300 transition"
+              onClick={() => setCurrentStep(currentStep - 1)}
+            >
+              &lt; previous
+            </button>
+          </div>
+        </div>
+      )}
+
+      {currentStep === 4 && (
+        <div className="w-full max-w-2xl border-[6px] border-yellow-400 p-10 px-16 rounded-2xl shadow-2xl flex flex-col justify-between bg-white">
+          <div className="w-full">
             <h1 className="text-4xl font-bold mb-4">What's your budget?</h1>
 
             <button
               className="mr-4 bg-yellow-400 text-black font-semibold px-8 py-4 rounded-full hover:bg-yellow-300 transition"
               onClick={() => {
                 setAnswers({ ...answers, budget: "HIGH" });
-                setCurrentStep(2);
+                setCurrentStep(5);
               }}
             >
               High💰
@@ -86,7 +250,7 @@ export default function Home() {
               className="mr-4 bg-yellow-400 text-black font-semibold px-8 py-4 rounded-full hover:bg-yellow-300 transition"
               onClick={() => {
                 setAnswers({ ...answers, budget: "MEDIUM" });
-                setCurrentStep(2);
+                setCurrentStep(5);
               }}
             >
               Medium💵
@@ -95,7 +259,7 @@ export default function Home() {
               className="mr-4 bg-yellow-400 text-black font-semibold px-8 py-4 rounded-full hover:bg-yellow-300 transition"
               onClick={() => {
                 setAnswers({ ...answers, budget: "LOW" });
-                setCurrentStep(2);
+                setCurrentStep(5);
               }}
             >
               Low🪙
@@ -113,7 +277,7 @@ export default function Home() {
         </div>
       )}
 
-      {currentStep === 2 && (
+      {currentStep === 5 && (
         <div className="w-full max-w-2xl border-[6px] border-yellow-400 p-10 px-16 rounded-2xl shadow-2xl flex flex-col justify-between bg-white">
           <div className="w-full">
             <h1 className="text-4xl font-bold mb-4">
@@ -123,8 +287,11 @@ export default function Home() {
             <button
               className="mr-4 bg-yellow-400 text-black font-semibold px-8 py-4 rounded-full hover:bg-yellow-300 transition"
               onClick={() => {
-                setAnswers({ ...answers, preferredTags: ["city"] });
-                setCurrentStep(3);
+                setAnswers({
+                  ...answers,
+                  preferredTags: [...answers.preferredTags, "city"],
+                });
+                setCurrentStep(6);
               }}
             >
               City🏙️
@@ -132,11 +299,26 @@ export default function Home() {
             <button
               className="mr-4 bg-yellow-400 text-black font-semibold px-8 py-4 rounded-full hover:bg-yellow-300 transition"
               onClick={() => {
-                setAnswers({ ...answers, preferredTags: ["nature"] });
-                setCurrentStep(3);
+                setAnswers({
+                  ...answers,
+                  preferredTags: [...answers.preferredTags, "nature"],
+                });
+                setCurrentStep(6);
               }}
             >
               Nature🏔️
+            </button>
+            <button
+              className="mr-4 bg-yellow-400 text-black font-semibold px-8 py-4 rounded-full hover:bg-yellow-300 transition"
+              onClick={() => {
+                setAnswers({
+                  ...answers,
+                  preferredTags: [...answers.preferredTags, "nature", "city"],
+                });
+                setCurrentStep(6);
+              }}
+            >
+              I don't mind any
             </button>
           </div>
 
@@ -151,7 +333,7 @@ export default function Home() {
         </div>
       )}
 
-      {currentStep === 3 && (
+      {currentStep === 6 && (
         <div className="w-full max-w-2xl border-[6px] border-yellow-400 p-10 px-16 rounded-2xl shadow-2xl flex flex-col justify-between bg-white">
           <div>
             <h1 className="text-4xl font-bold mb-4">What do you enjoy?</h1>
@@ -198,10 +380,10 @@ export default function Home() {
               })}
 
               <div className="w-full h-1 bg-yellow-300 my-6 rounded-full" />
-              
+
               <button
                 className="mr-4 bg-yellow-400 text-black font-semibold px-8 py-4 rounded-full hover:bg-yellow-300 transition"
-                onClick={() => setCurrentStep(4)}
+                onClick={() => setCurrentStep(7)}
               >
                 Next
               </button>
@@ -209,19 +391,17 @@ export default function Home() {
           </div>
 
           <div className="w-full text-right mt-4">
-              <button
+            <button
               className="text-[14px] cursor-pointer bg-gray-200 text-black font-semibold px-5 py-2.5 rounded-full hover:bg-gray-300 transition"
               onClick={() => setCurrentStep(currentStep - 1)}
             >
               &lt; previous
             </button>
           </div>
-
-          
         </div>
       )}
 
-      {currentStep === 4 && (
+      {currentStep === 7 && (
         <div className="w-full max-w-2xl border-[6px] border-yellow-400 p-10 px-16 rounded-2xl shadow-2xl flex flex-col justify-between bg-white">
           <div className="w-full">
             <h1 className="text-4xl font-bold mb-6 text-left">What climate?</h1>
@@ -273,8 +453,7 @@ export default function Home() {
         </div>
       )}
 
-
-      {/* {currentStep === 5 && (
+      {/* {currentStep === 6 && (
         <div>
           <h1>Do you prefer relaxed or busy? / to be modified later</h1>
           
@@ -302,6 +481,7 @@ export default function Home() {
 
   async function handleSubmit(selectedClimate: string) {
     const finalObject = { ...answers, climate: selectedClimate };
+    console.log("Sending to API:", finalObject);
 
     const response = await fetch("/api/generate-itinerary", {
       method: "POST",
@@ -310,6 +490,7 @@ export default function Home() {
     });
     const data = await response.json();
 
+    localStorage.setItem("days", JSON.stringify(answers.days));
     localStorage.setItem("result", JSON.stringify(data));
     router.push("/result");
   }
