@@ -4,7 +4,7 @@ import { PrismaClient } from '@prisma/client'
 import { PrismaPg } from '@prisma/adapter-pg'
 import { scoreDestinations } from "../../../src/lib/scoring"
 import { NextResponse } from "next/server"
-import { GoogleGenAI, Type } from "@google/genai"
+import { GoogleGenAI } from "@google/genai"
 
 const adapter = new PrismaPg({ connectionString: process.env.DATABASE_URL! })
 const prisma = new PrismaClient({ adapter })
@@ -14,18 +14,27 @@ const ai = new GoogleGenAI({
 })
 
 const itinerarySchema = {
-    type: Type.OBJECT,
+    type: "object",
     properties: {
         days: {
-            type: Type.ARRAY,
+            type: "array",
             items: {
-                type: Type.OBJECT,
+                type: "object",
                 properties: {
-                    dayNumber: { type: Type.INTEGER },
-                    time: { type: Type.STRING },
-                    activity: { type: Type.STRING }
+                    dayNumber: { type: "integer" },
+                    activities: {
+                        type: "array",
+                        items: {
+                            type: "object",
+                            properties: {
+                                time: { type: "string" },      
+                                description: { type: "string" } 
+                            },
+                            required: ["time", "description"]
+                        }
+                    }
                 },
-                required: ["dayNumber","time","activity"]
+                required: ["dayNumber", "activities"]
             }
         }
     },
@@ -42,13 +51,17 @@ export async function POST(request: Request){
 
         if(!winner) return NextResponse.json({ error:'No destionation was found'}, {status: 404});
 
-        const aiResponse = await ai.models.generateContent({
-            model: 'gemini-3.5-flash',
-            contents: `Create a detailed and nice itinerary for this destionation: ${winner.name}. Number of days: ${body.days}
+        const prompt = `
+            Create a detailed and nice itinerary for this destionation: ${winner.name}. Number of days: ${body.days}
                         Style of vacation:
                         Budget: ${body.budget}, Interests: ${body.preferredTags.join(', ')}
                         Be specific and not general, put tips for some things etc
-                        Also, please always start the trip with arrival and end with departure`,
+                        Also, please always start the trip with arrival and end with departure
+        `;
+
+        const aiResponse = await ai.models.generateContent({
+            model: 'gemini-3.5-flash',
+            contents: prompt,
             config: {
                 systemInstruction: "Youre elite travel guide and generate perfect itineraries based on user preferences",
                 responseMimeType: "application/json",
