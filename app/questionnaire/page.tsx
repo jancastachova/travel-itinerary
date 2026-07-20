@@ -489,8 +489,8 @@ export default function Home() {
       body: JSON.stringify(finalObject),
     });
     const data = await response.json();
+    console.log(data)
 
-    localStorage.setItem("days", JSON.stringify(answers.days));
     localStorage.setItem("result", JSON.stringify(data));
     router.push("/result");
   }

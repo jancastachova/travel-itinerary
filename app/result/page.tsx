@@ -1,25 +1,28 @@
 "use client";
 import Link from "next/link";
 
+interface AIActivity {
+  time: string;
+  description: string;
+}
+
+interface AIDay {
+  dayNumber: number;
+  activities: AIActivity[];
+}
+
 export default function Result() {
   const data =
     typeof window !== "undefined"
       ? JSON.parse(localStorage.getItem("result") || "{}")
       : {};
-  const days =
-    typeof window !== "undefined"
-      ? JSON.parse(localStorage.getItem("days") || "0")
-      : 0;
 
   const destination = data?.destination;
   const image = destination?.name
     ? `/images/${destination.name.toLowerCase()}.jpg`
     : "";
   const tagsArray = data?.destination?.tags || [];
-  const daysArray = Array.from({ length: days || 0 }, (_, i) => ({
-    day: i + 1,
-    activity: tagsArray[i % tagsArray.length]?.name,
-  }));
+  const daysArray: AIDay[] = data?.aiDays || [];
 
   const ColoredLine = ({ color }: { color: string }) => (
     <hr style={{ color, backgroundColor: color, height: 1.5, width: 500 }} />
@@ -68,16 +71,41 @@ export default function Result() {
         )}
       </div>
 
+      {/* <div className="w-full my-4 overflow-y-auto max-h-[300px]">
+        <table className="w-full table-fixed border-separate border-spacing-y-2 border-spacing-x-3">
+          <tbody>
+            {daysArray.map((item) => (
+              <tr key={item.dayNumber}>
+                <td className="w-[20%] border border-yellow-300 bg-yellow-400 bg-white p-3 rounded-lg font-semibold text-gray-700 align-top text-sm">
+                  Day {item.dayNumber}:
+                </td>
+                <td className="w-[80%] border border-yellow-300 p-3 rounded-lg text-gray-600 align-top text-sm break-words">
+                  {item.activities.map((a) => (
+                    <div>
+                      {a.time}: {a.description}
+                    </div>
+                  ))}
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div> */}
+
       <div className="w-full my-4 overflow-y-auto max-h-[300px]">
         <table className="w-full table-fixed border-separate border-spacing-y-2 border-spacing-x-3">
           <tbody>
             {daysArray.map((item) => (
-              <tr key={item.day}>
-                <td className="w-[20%] border border-yellow-300 bg-yellow-400 bg-white p-3 rounded-lg font-semibold text-gray-700 align-top text-sm">
-                  Day {item.day}:
+              <tr key={item.dayNumber}>
+                <td className="w-[20%] border border-yellow-300 bg-yellow-400 p-3 rounded-lg font-semibold text-gray-700 align-top text-sm">
+                  Day {item.dayNumber}:
                 </td>
-                <td className="w-[80%] border border-yellow-300 p-3 rounded-lg text-gray-600 align-top text-sm break-words">
-                  {item.activity}
+                <td className="w-[80%] border border-yellow-300 p-3 rounded-lg text-gray-600 align-top text-sm break-words bg-white">
+                  {item.activities.map((a, index) => (
+                    <div key={index}>
+                      {a.time}: {a.description}
+                    </div>
+                  ))}
                 </td>
               </tr>
             ))}
