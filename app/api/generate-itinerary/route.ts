@@ -49,18 +49,22 @@ export async function POST(request: Request) {
     });
     const winner = scoreDestinations(body, destinations);
 
-    if (!winner) return NextResponse.json({ error: "No destionation was found" },{ status: 404 });
+    if (!winner)
+      return NextResponse.json(
+        { error: "No destionation was found" },
+        { status: 404 },
+      );
 
     const prompt = `
             Create a detailed and nice itinerary for this destionation: ${winner.name}. Number of days: ${body.days}
                         Style of vacation:
-                        Budget: ${body.budget}, Interests: ${body.preferredTags.join(', ')}
+                        Budget: ${body.budget}, Interests: ${body.preferredTags.join(", ")}
                         Be specific and not general, put tips for some things etc
                         Also, please always start the trip with arrival and end with departure
         `;
 
     // const aiResponse = await ai.models.generateContent({
-    //   model: "gemini-3.5-flash",
+    //   model: "gemini-3.5-flash-pro",
     //   contents: prompt,
     //   config: {
     //     systemInstruction:
@@ -109,6 +113,80 @@ export async function POST(request: Request) {
               time: "20:00",
               description:
                 "Večerní plavba nebo procházka kolem osvětlených památek.",
+            },
+          ],
+        },
+        {
+          dayNumber: 3,
+          activities: [
+            {
+              time: "09:30",
+              description:
+                "Výlet na místní tržnici, ochutnávka pouličního jídla a nákup lokálních surovin.",
+            },
+            {
+              time: "13:00",
+              description:
+                "Odpolední siesta v parku spojená s lehkým piknikem.",
+            },
+            {
+              time: "16:00",
+              description:
+                "Prohlídka moderní čtvrti s architektonickými skvosty a street artem.",
+            },
+          ],
+        },
+        {
+          dayNumber: 4,
+          activities: [
+            {
+              time: "08:00",
+              description:
+                "Celodenní výlet do blízkého okolí (přírodní rezervace nebo historické městečko).",
+            },
+            {
+              time: "12:30",
+              description: "Tradiční oběd v rodinné hospůdce na venkově.",
+            },
+            {
+              time: "17:00",
+              description: "Návrat zpět do města a zasloužený odpočinek.",
+            },
+          ],
+        },
+        {
+          dayNumber: 5,
+          activities: [
+            {
+              time: "10:00",
+              description: "Kulinářský kurz vaření s místním šéfkuchařem.",
+            },
+            {
+              time: "15:00",
+              description:
+                "Nákupy suvenýrů a volné odpoledne pro vlastní objevování.",
+            },
+            {
+              time: "21:00",
+              description:
+                "Návštěva vyhlášeného jazzového klubu nebo střešního baru s koktejly.",
+            },
+          ],
+        },
+        {
+          dayNumber: 6,
+          activities: [
+            {
+              time: "09:00",
+              description: "Poslední ranní káva a snídaně v oblíbené kavárně.",
+            },
+            {
+              time: "11:00",
+              description: "Balení věcí na hotelu a závěrečný check-out.",
+            },
+            {
+              time: "14:00",
+              description: "Přesun na letiště a odlet domů.",
             },
           ],
         },

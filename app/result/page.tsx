@@ -49,7 +49,7 @@ export default function Result() {
             */}
         <div className="absolute bottom-0 translate-y-1/2 w-[85%] bg-[#fbd331]/85 hover:bg-yellow-400 text-amber-950 p-2 rounded-full shadow-md">
           <div className="border-2 border-yellow-300 rounded-full shadow-xl py-3 px-6 flex items-center justify-center">
-            <h1 className="text-black text-2xl text-center font-semibold">
+            <h1 className="text-black text-3xl text-center">
               {destination?.name}
             </h1>
           </div>
@@ -57,15 +57,13 @@ export default function Result() {
       </div>
 
       {/* mt-16 posune popisek těsně pod hranu spodního štítku */}
-      <div className="mt-16 flex flex-col items-center gap-1 text-gray-600 font-medium tracking-wide w-full">
-        <p className=" text-xs text-gray-400"> {destination?.description}</p>
+      <div className="mt-10 flex flex-col items-center gap-1 text-gray-600 font-medium tracking-wide w-full">
+        <p className="text-sm text-gray-400 text-center leading-relaxed">
+            {destination?.description}
+          </p>
 
         {destination?.climate && (
           <>
-            <p className="text-xs text-gray-400">
-              Enjoy lovely {destination.climate.toLowerCase()} climate your
-              whole stay
-            </p>
             <ColoredLine color="#facc15" />
           </>
         )}
@@ -97,15 +95,30 @@ export default function Result() {
           <tbody>
             {daysArray.map((item) => (
               <tr key={item.dayNumber}>
-                <td className="w-[20%] border border-yellow-300 bg-yellow-400 p-3 rounded-lg font-semibold text-gray-700 align-top text-sm">
-                  Day {item.dayNumber}:
+                <td className="w-[20%] border border-yellow-300 bg-yellow-400 p-3 rounded-lg text-gray-700 align-middle text-center text-xl">
+                  DAY <br></br> {item.dayNumber}
                 </td>
+
                 <td className="w-[80%] border border-yellow-300 p-3 rounded-lg text-gray-600 align-top text-sm break-words bg-white">
-                  {item.activities.map((a, index) => (
-                    <div key={index}>
-                      {a.time}: {a.description}
-                    </div>
-                  ))}
+                  {/* vertical yellow line */}
+                  <div className="relative flex flex-col gap-3 pl-4 before:absolute before:bottom-2 before:left-[5px] before:top-2 before:w-[2px] before:bg-yellow-200">
+                    {item.activities.map((a, index) => (
+                      <div
+                        key={index}
+                        className="relative flex items-start gap-2"
+                      >
+                        {/*yellow dot*/}
+                        <span className="absolute -left-[15px] top-[6px] h-2 w-2 rounded-full border border-yellow-500 bg-yellow-400 shrink-0" />
+                        <div>
+                          <span className="font-semibold text-gray-800">
+                            {a.time}
+                          </span>
+                          <span className="text-gray-400 mx-1.5">•</span>
+                          <span>{a.description}</span>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
                 </td>
               </tr>
             ))}

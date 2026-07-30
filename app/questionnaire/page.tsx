@@ -4,7 +4,7 @@ import { useRouter } from "next/navigation";
 
 export default function Home() {
   const router = useRouter();
-
+  const [isLoading, setIsLoading] = useState(false)
   const [currentStep, setCurrentStep] = useState(0);
   const [answers, setAnswers] = useState({
     days: 0,
@@ -30,6 +30,17 @@ export default function Home() {
   useEffect(() => {
     console.log(answers);
   }, [answers]);
+
+  if (isLoading) {
+  return (
+    <div className="flex flex-col items-center justify-center min-h-screen bg-white dark:bg-[#0a0a0a]">
+      <div className="loader"></div>
+      <p className="mt-4 text-lg font-semibold text-gray-700 dark:text-gray-300 animate-pulse">
+        Finding your perfect destination...
+      </p>
+    </div>
+  );
+}
 
   return (
     <div className="flex flex-row items-center justify-center min-h-screen">
@@ -477,21 +488,44 @@ export default function Home() {
       <button className="ml-4 bg-yellow-400 text-black font-semibold px-8 py-4 rounded-full hover:bg-yellow-300 transition"
               onClick={()=> setCurrentStep(currentStep + 1)}>Next</button> */}
     </div>
+
+    
   );
 
+
+  
+
   async function handleSubmit(selectedClimate: string) {
+    
+    setIsLoading(true);
+    
     const finalObject = { ...answers, climate: selectedClimate };
     console.log("Sending to API:", finalObject);
 
-    const response = await fetch("/api/generate-itinerary", {
-      method: "POST",
-      headers: { "Content-type": "application/json" },
-      body: JSON.stringify(finalObject),
-    });
-    const data = await response.json();
-    console.log(data)
 
-    localStorage.setItem("result", JSON.stringify(data));
-    router.push("/result");
+    try{
+        
+      const [response] = await Promise.all([
+      fetch("/api/generate-itinerary", {
+        method: "POST",
+        headers: { "Content-type": "application/json" },
+        body: JSON.stringify(finalObject),
+      }),
+      new Promise((resolve) =>setTimeout(resolve, 2000))
+    ]);
+      
+      const data = await response.json();
+      console.log(data)
+
+      localStorage.setItem("result", JSON.stringify(data));
+      // setIsLoading(false)
+      router.push("/result");
+    }catch{
+      console.error("Error while sending data", Error)
+      // setIsLoading(false)
+    }
+
+    
   }
+  
 }
