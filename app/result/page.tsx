@@ -74,8 +74,9 @@ export default function Result() {
   );
 
   return (
-    <div className="w-full min-h-screen bg-gray-100 py-8 flex flex-row items-center justify-center gap-8 overflow-y-auto">
-      <div className="w-full max-w-2xl aspect-[1/1.414] bg-[#fafafa] flex flex-col items-center justify-start border-[3px] border-yellow-400 rounded-2xl p-10 shadow-2xl relative">
+    <div className="w-full min-h-screen bg-gray-100 p-8 flex flex-row flex-wrap items-start justify-center content-center gap-8 overflow-y-auto print:block print:bg-white print:p-0">
+      
+      <div className="w-full max-w-2xl aspect-[1/1.414] bg-[#fafafa] flex flex-col items-center justify-start border-[3px] border-yellow-400 rounded-2xl p-10 shadow-2xl relative print:break-after-page print:w-[210mm] print:h-[297mm] print:border-none print:shadow-none print:bg-white print:rounded-none">
         <div className="relative w-full flex flex-col items-center">
           {image && (
             <img
@@ -131,20 +132,33 @@ export default function Result() {
       {/*DYNAMIC PAGES*/}
       {extraPages.map((pageDays, pageIndex) => (
         <div 
-          key={pageIndex} 
-          className="w-full max-w-2xl aspect-[1/1.414] bg-[#fafafa] flex flex-col items-center justify-start border-[3px] border-yellow-400 rounded-2xl p-10 shadow-2xl relative"
-        >
+            key={pageIndex} 
+            className="w-full max-w-2xl aspect-[1/1.414] bg-[#fafafa] flex flex-col items-center justify-start border-[3px] border-yellow-400 rounded-2xl p-10 shadow-2xl relative print:break-after-page print:w-[210mm] print:h-[297mm] print:border-none print:shadow-none print:bg-white print:rounded-none"
+          >
 
           <div className="w-full my-4">
             <RenderDaysTable days={pageDays} />
           </div>
 
           {pageIndex === extraPages.length - 1 && (
+            <div className="flex f-row gap-5">
+
+            
             <div className="mt-auto print:hidden">
-              <Link href="/questionnaire" className="bg-yellow-400 text-black font-semibold px-8 py-4 rounded-full hover:bg-yellow-300 transition shadow-md block text-center">
+              <Link href="/questionnaire" className="bg-yellow-400 text-black px-8 py-4 rounded-full hover:bg-yellow-300 transition shadow-md block text-center">
                 Plan Again
               </Link>
             </div>
+            <div className="mt-auto print:hidden">
+              <button 
+              onClick={()=>{
+                window.print()
+              }}
+              className="bg-yellow-400 text-black px-8 py-4 rounded-full hover:bg-yellow-300 transition shadow-md block text-center">
+                  Download PDF
+              </button>
+            </div>  
+          </div>
           )}
         </div>
       ))}
