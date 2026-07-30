@@ -4,7 +4,7 @@ import { useRouter } from "next/navigation";
 
 export default function Home() {
   const router = useRouter();
-
+  const [isLoading, setIsLoading] = useState(false)
   const [currentStep, setCurrentStep] = useState(0);
   const [answers, setAnswers] = useState({
     days: 0,
@@ -31,6 +31,17 @@ export default function Home() {
     console.log(answers);
   }, [answers]);
 
+  if (isLoading) {
+  return (
+    <div className="flex flex-col items-center justify-center min-h-screen bg-white dark:bg-[#0a0a0a]">
+      <div className="loader"></div>
+      <p className="mt-4 text-lg font-semibold text-gray-700 dark:text-gray-300 animate-pulse">
+        Finding your perfect destination...
+      </p>
+    </div>
+  );
+}
+
   return (
     <div className="flex flex-row items-center justify-center min-h-screen">
       {currentStep === 0 && (
@@ -40,7 +51,7 @@ export default function Home() {
               How many days?
             </h1>
 
-            <p className="text-xl font-semibold mb-2 text-left">{days} days</p>
+            <p className="text-xl mb-2 text-left">{days} days</p>
             <input
               type="range"
               min={3}
@@ -51,7 +62,7 @@ export default function Home() {
             />
 
             <button
-              className="bg-yellow-400 text-black font-semibold px-8 py-4 rounded-full hover:bg-yellow-300 transition block w-fit"
+              className="bg-yellow-400 text-black px-8 py-4 rounded-full hover:bg-yellow-300 transition block w-fit"
               onClick={() => {
                 setAnswers({ ...answers, days: days });
                 setCurrentStep(1);
@@ -78,7 +89,7 @@ export default function Home() {
             <h1 className="text-4xl font-bold mb-4">Who do you travel with?</h1>
             <div className="flex flex-wrap gap-3 w-full mb-8">
               <button
-                className="mr-4 bg-yellow-400 text-black font-semibold px-8 py-4 rounded-full hover:bg-yellow-300 transition"
+                className="mr-4 bg-yellow-400 text-black px-8 py-4 rounded-full hover:bg-yellow-300 transition"
                 onClick={() => {
                   setAnswers({
                     ...answers,
@@ -90,7 +101,7 @@ export default function Home() {
                 Pair👩‍❤️‍👨
               </button>
               <button
-                className="mr-4 bg-yellow-400 text-black font-semibold px-8 py-4 rounded-full hover:bg-yellow-300 transition"
+                className="mr-4 bg-yellow-400 text-black px-8 py-4 rounded-full hover:bg-yellow-300 transition"
                 onClick={() => {
                   setAnswers({
                     ...answers,
@@ -102,7 +113,7 @@ export default function Home() {
                 Family👨‍👩‍👧‍👦
               </button>
               <button
-                className="mr-4 bg-yellow-400 text-black font-semibold px-8 py-4 rounded-full hover:bg-yellow-300 transition"
+                className="mr-4 bg-yellow-400 text-black px-8 py-4 rounded-full hover:bg-yellow-300 transition"
                 onClick={() => {
                   setAnswers({
                     ...answers,
@@ -115,7 +126,7 @@ export default function Home() {
               </button>
 
               <button
-                className="mr-4 bg-yellow-400 text-black font-semibold px-8 py-4 rounded-full hover:bg-yellow-300 transition"
+                className="mr-4 bg-yellow-400 text-black px-8 py-4 rounded-full hover:bg-yellow-300 transition"
                 onClick={() => {
                   setAnswers({
                     ...answers,
@@ -146,7 +157,7 @@ export default function Home() {
             <h1 className="text-4xl font-bold mb-4">What kind of holiday?</h1>
             <div className="flex flex-wrap gap-3 w-full mb-8">
               <button
-                className="mr-4 bg-yellow-400 text-black font-semibold px-8 py-4 rounded-full hover:bg-yellow-300 transition"
+                className="mr-4 bg-yellow-400 text-black px-8 py-4 rounded-full hover:bg-yellow-300 transition"
                 onClick={() => {
                   setAnswers({
                     ...answers,
@@ -158,7 +169,7 @@ export default function Home() {
                 Relaxation💆‍♀️
               </button>
               <button
-                className="mr-4 bg-yellow-400 text-black font-semibold px-8 py-4 rounded-full hover:bg-yellow-300 transition"
+                className="mr-4 bg-yellow-400 text-black px-8 py-4 rounded-full hover:bg-yellow-300 transition"
                 onClick={() => {
                   setAnswers({
                     ...answers,
@@ -170,7 +181,7 @@ export default function Home() {
                 Sightseeing📸
               </button>
               <button
-                className="mr-4 bg-yellow-400 text-black font-semibold px-8 py-4 rounded-full hover:bg-yellow-300 transition"
+                className="mr-4 bg-yellow-400 text-black px-8 py-4 rounded-full hover:bg-yellow-300 transition"
                 onClick={() => {
                   setAnswers({
                     ...answers,
@@ -185,7 +196,7 @@ export default function Home() {
           </div>
           <div className="w-full text-right mt-8">
             <button
-              className="text-[14px] cursor-pointer bg-gray-200 text-black font-semibold px-5 py-2.5 rounded-full hover:bg-gray-300 transition"
+              className="text-[14px] cursor-pointer bg-gray-200 text-black px-5 py-2.5 rounded-full hover:bg-gray-300 transition"
               onClick={() => setCurrentStep(currentStep - 1)}
             >
               &lt; previous
@@ -202,7 +213,7 @@ export default function Home() {
             </h1>
 
             <button
-              className="mr-4 bg-yellow-400 text-black font-semibold px-8 py-4 rounded-full hover:bg-yellow-300 transition"
+              className="mr-4 bg-yellow-400 text-black px-8 py-4 rounded-full hover:bg-yellow-300 transition"
               onClick={() => {
                 setAnswers({ ...answers, isCountry: false });
                 setCurrentStep(4);
@@ -211,7 +222,7 @@ export default function Home() {
               Stay in one place
             </button>
             <button
-              className="mr-4 bg-yellow-400 text-black font-semibold px-8 py-4 rounded-full hover:bg-yellow-300 transition"
+              className="mr-4 bg-yellow-400 text-black px-8 py-4 rounded-full hover:bg-yellow-300 transition"
               onClick={() => {
                 setAnswers({ ...answers, isCountry: true });
                 setCurrentStep(4);
@@ -238,7 +249,7 @@ export default function Home() {
             <h1 className="text-4xl font-bold mb-4">What's your budget?</h1>
 
             <button
-              className="mr-4 bg-yellow-400 text-black font-semibold px-8 py-4 rounded-full hover:bg-yellow-300 transition"
+              className="mr-4 bg-yellow-400 text-black px-8 py-4 rounded-full hover:bg-yellow-300 transition"
               onClick={() => {
                 setAnswers({ ...answers, budget: "HIGH" });
                 setCurrentStep(5);
@@ -247,7 +258,7 @@ export default function Home() {
               High💰
             </button>
             <button
-              className="mr-4 bg-yellow-400 text-black font-semibold px-8 py-4 rounded-full hover:bg-yellow-300 transition"
+              className="mr-4 bg-yellow-400 text-black px-8 py-4 rounded-full hover:bg-yellow-300 transition"
               onClick={() => {
                 setAnswers({ ...answers, budget: "MEDIUM" });
                 setCurrentStep(5);
@@ -256,7 +267,7 @@ export default function Home() {
               Medium💵
             </button>
             <button
-              className="mr-4 bg-yellow-400 text-black font-semibold px-8 py-4 rounded-full hover:bg-yellow-300 transition"
+              className="mr-4 bg-yellow-400 text-black px-8 py-4 rounded-full hover:bg-yellow-300 transition"
               onClick={() => {
                 setAnswers({ ...answers, budget: "LOW" });
                 setCurrentStep(5);
@@ -285,7 +296,7 @@ export default function Home() {
             </h1>
 
             <button
-              className="mr-4 bg-yellow-400 text-black font-semibold px-8 py-4 rounded-full hover:bg-yellow-300 transition"
+              className="mr-4 bg-yellow-400 text-black px-8 py-4 rounded-full hover:bg-yellow-300 transition"
               onClick={() => {
                 setAnswers({
                   ...answers,
@@ -297,7 +308,7 @@ export default function Home() {
               City🏙️
             </button>
             <button
-              className="mr-4 bg-yellow-400 text-black font-semibold px-8 py-4 rounded-full hover:bg-yellow-300 transition"
+              className="mr-4 bg-yellow-400 text-black px-8 py-4 rounded-full hover:bg-yellow-300 transition"
               onClick={() => {
                 setAnswers({
                   ...answers,
@@ -309,7 +320,7 @@ export default function Home() {
               Nature🏔️
             </button>
             <button
-              className="mr-4 bg-yellow-400 text-black font-semibold px-8 py-4 rounded-full hover:bg-yellow-300 transition"
+              className="mr-4 bg-yellow-400 text-black px-8 py-4 rounded-full hover:bg-yellow-300 transition"
               onClick={() => {
                 setAnswers({
                   ...answers,
@@ -382,7 +393,7 @@ export default function Home() {
               <div className="w-full h-1 bg-yellow-300 my-6 rounded-full" />
 
               <button
-                className="mr-4 bg-yellow-400 text-black font-semibold px-8 py-4 rounded-full hover:bg-yellow-300 transition"
+                className="mr-4 bg-yellow-400 text-black px-8 py-4 rounded-full hover:bg-yellow-300 transition"
                 onClick={() => setCurrentStep(7)}
               >
                 Next
@@ -408,33 +419,33 @@ export default function Home() {
 
             <div className="flex flex-wrap gap-3 w-full mb-8">
               <button
-                className="bg-yellow-400 text-black font-semibold px-6 py-3 rounded-full hover:bg-yellow-300 transition whitespace-nowrap"
+                className="bg-yellow-400 text-black px-6 py-3 rounded-full hover:bg-yellow-300 transition whitespace-nowrap"
                 onClick={() => handleSubmit("Arctic")}
               >
                 Arctic❄️
               </button>
               <button
-                className="bg-yellow-400 text-black font-semibold px-6 py-3 rounded-full hover:bg-yellow-300 transition whitespace-nowrap"
+                className="bg-yellow-400 text-black px-6 py-3 rounded-full hover:bg-yellow-300 transition whitespace-nowrap"
                 onClick={() => handleSubmit("Tropical")}
               >
                 Tropical🌴
               </button>
 
               <button
-                className="bg-yellow-400 text-black font-semibold px-6 py-3 rounded-full hover:bg-yellow-300 transition whitespace-nowrap"
+                className="bg-yellow-400 text-black px-6 py-3 rounded-full hover:bg-yellow-300 transition whitespace-nowrap"
                 onClick={() => handleSubmit("Temperate")}
               >
                 Temperate🌳
               </button>
 
               <button
-                className="bg-yellow-400 text-black font-semibold px-6 py-3 rounded-full hover:bg-yellow-300 transition whitespace-nowrap"
+                className="bg-yellow-400 text-black px-6 py-3 rounded-full hover:bg-yellow-300 transition whitespace-nowrap"
                 onClick={() => handleSubmit("Mediterranean")}
               >
                 Mediterranean☀️
               </button>
               <button
-                className="bg-yellow-400 text-black font-semibold px-6 py-3 rounded-full hover:bg-yellow-300 transition whitespace-nowrap"
+                className="bg-yellow-400 text-black px-6 py-3 rounded-full hover:bg-yellow-300 transition whitespace-nowrap"
                 onClick={() => handleSubmit("Continental")}
               >
                 Continental🍂
@@ -477,21 +488,44 @@ export default function Home() {
       <button className="ml-4 bg-yellow-400 text-black font-semibold px-8 py-4 rounded-full hover:bg-yellow-300 transition"
               onClick={()=> setCurrentStep(currentStep + 1)}>Next</button> */}
     </div>
+
+    
   );
 
+
+  
+
   async function handleSubmit(selectedClimate: string) {
+    
+    setIsLoading(true);
+    
     const finalObject = { ...answers, climate: selectedClimate };
     console.log("Sending to API:", finalObject);
 
-    const response = await fetch("/api/generate-itinerary", {
-      method: "POST",
-      headers: { "Content-type": "application/json" },
-      body: JSON.stringify(finalObject),
-    });
-    const data = await response.json();
 
-    localStorage.setItem("days", JSON.stringify(answers.days));
-    localStorage.setItem("result", JSON.stringify(data));
-    router.push("/result");
+    try{
+        
+      const [response] = await Promise.all([
+      fetch("/api/generate-itinerary", {
+        method: "POST",
+        headers: { "Content-type": "application/json" },
+        body: JSON.stringify(finalObject),
+      }),
+      new Promise((resolve) =>setTimeout(resolve, 5000))
+    ]);
+      
+      const data = await response.json();
+      console.log(data)
+
+      localStorage.setItem("result", JSON.stringify(data));
+      // setIsLoading(false)
+      router.push("/result");
+    }catch{
+      console.error("Error while sending data", Error)
+      // setIsLoading(false)
+    }
+
+    
   }
+  
 }
