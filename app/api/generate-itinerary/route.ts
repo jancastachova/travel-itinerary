@@ -77,121 +77,179 @@ export async function POST(request: Request) {
     // const aiItinerary = JSON.parse(aiResponse.text || "{}");
 
     const aiItinerary = {
-      days: [
+  days: [
+    {
+      dayNumber: 1,
+      activities: [
         {
-          dayNumber: 1,
-          activities: [
-            {
-              time: "09:00",
-              description: "Přílet na letiště, přesun na hotel a check-in.",
-            },
-            {
-              time: "14:00",
-              description: "Prohlídka historického centra a hlavní katedrály.",
-            },
-            {
-              time: "19:00",
-              description:
-                "Welcome večeře v lokální restauraci s ochutnávkou specialit.",
-            },
-          ],
+          time: "09:00",
+          description: "Přílet na letiště, přesun na hotel a check-in.",
         },
         {
-          dayNumber: 2,
-          activities: [
-            {
-              time: "10:00",
-              description:
-                "Návštěva slavného muzea a procházka v přilehlých zahradách.",
-            },
-            {
-              time: "15:00",
-              description:
-                "Hidden gem: Tajná vyhlídka na město bez turistů (doporučujeme kávu s sebou).",
-            },
-            {
-              time: "20:00",
-              description:
-                "Večerní plavba nebo procházka kolem osvětlených památek.",
-            },
-          ],
+          time: "14:00",
+          description: "Prohlídka historického centra a hlavní katedrály.",
         },
         {
-          dayNumber: 3,
-          activities: [
-            {
-              time: "09:30",
-              description:
-                "Výlet na místní tržnici, ochutnávka pouličního jídla a nákup lokálních surovin.",
-            },
-            {
-              time: "13:00",
-              description:
-                "Odpolední siesta v parku spojená s lehkým piknikem.",
-            },
-            {
-              time: "16:00",
-              description:
-                "Prohlídka moderní čtvrti s architektonickými skvosty a street artem.",
-            },
-          ],
-        },
-        {
-          dayNumber: 4,
-          activities: [
-            {
-              time: "08:00",
-              description:
-                "Celodenní výlet do blízkého okolí (přírodní rezervace nebo historické městečko).",
-            },
-            {
-              time: "12:30",
-              description: "Tradiční oběd v rodinné hospůdce na venkově.",
-            },
-            {
-              time: "17:00",
-              description: "Návrat zpět do města a zasloužený odpočinek.",
-            },
-          ],
-        },
-        {
-          dayNumber: 5,
-          activities: [
-            {
-              time: "10:00",
-              description: "Kulinářský kurz vaření s místním šéfkuchařem.",
-            },
-            {
-              time: "15:00",
-              description:
-                "Nákupy suvenýrů a volné odpoledne pro vlastní objevování.",
-            },
-            {
-              time: "21:00",
-              description:
-                "Návštěva vyhlášeného jazzového klubu nebo střešního baru s koktejly.",
-            },
-          ],
-        },
-        {
-          dayNumber: 6,
-          activities: [
-            {
-              time: "09:00",
-              description: "Poslední ranní káva a snídaně v oblíbené kavárně.",
-            },
-            {
-              time: "11:00",
-              description: "Balení věcí na hotelu a závěrečný check-out.",
-            },
-            {
-              time: "14:00",
-              description: "Přesun na letiště a odlet domů.",
-            },
-          ],
+          time: "19:00",
+          description: "Welcome večeře v lokální restauraci s ochutnávkou specialit.",
         },
       ],
-    };
+    },
+    {
+      dayNumber: 2,
+      activities: [
+        {
+          time: "10:00",
+          description: "Návštěva slavného muzea a procházka v přilehlých zahradách.",
+        },
+        {
+          time: "15:00",
+          description: "Hidden gem: Tajná vyhlídka na město bez turistů (doporučujeme kávu s sebou).",
+        },
+        {
+          time: "20:00",
+          description: "Večerní plavba nebo procházka kolem osvětlených památek.",
+        },
+      ],
+    },
+    {
+      dayNumber: 3,
+      activities: [
+        {
+          time: "09:30",
+          description: "Výlet na místní tržnici, ochutnávka pouličního jídla a nákup lokálních surovin.",
+        },
+        {
+          time: "13:00",
+          description: "Odpolední siesta v parku spojená s lehkým piknikem.",
+        },
+        {
+          time: "16:00",
+          description: "Prohlídka moderní čtvrti s architektonickými skvosty a street artem.",
+        },
+      ],
+    },
+    {
+      dayNumber: 4,
+      activities: [
+        {
+          time: "08:00",
+          description: "Celodenní výlet do blízkého okolí (přírodní rezervace nebo historické městečko).",
+        },
+        {
+          time: "12:30",
+          description: "Tradiční oběd v rodinné hospůdce na venkově.",
+        },
+        {
+          time: "17:00",
+          description: "Návrat zpět do města a zasloužený odpočinek.",
+        },
+      ],
+    },
+    {
+      dayNumber: 5,
+      activities: [
+        {
+          time: "10:00",
+          description: "Kulinářský kurz vaření s místním šéfkuchařem.",
+        },
+        {
+          time: "15:00",
+          description: "Nákupy suvenýrů a volné odpoledne pro vlastní objevování.",
+        },
+        {
+          time: "21:00",
+          description: "Návštěva vyhlášeného jazzového klubu nebo střešního baru s koktejly.",
+        },
+      ],
+    },
+    {
+      dayNumber: 6,
+      activities: [
+        {
+          time: "09:30",
+          description: "Relaxační dopoledne v místních lázních nebo wellness centru.",
+        },
+        {
+          time: "14:00",
+          description: "Návštěva botanické zahrady a skleníků s exotickými rostlinami.",
+        },
+        {
+          time: "19:00",
+          description: "Večeře ve stylové čtvrti s výhledem na západ slunce.",
+        },
+      ],
+    },
+    {
+      dayNumber: 7,
+      activities: [
+        {
+          time: "08:30",
+          description: "Výlet k nedalekému jezeru nebo pobřeží, pronájem lodiček.",
+        },
+        {
+          time: "13:00",
+          description: "Čerstvý rybí oběd přímo v přístavu.",
+        },
+        {
+          time: "16:30",
+          description: "Procházka po malebných útesech a focení panoramat.",
+        },
+      ],
+    },
+    {
+      dayNumber: 8,
+      activities: [
+        {
+          time: "10:00",
+          description: "Galerie moderního umění a interaktivní vědecká výstava.",
+        },
+        {
+          time: "14:30",
+          description: "Degustace místních vín nebo řemeslných piv s odborným výkladem.",
+        },
+        {
+          time: "18:30",
+          description: "Volný večer na nasávání atmosféry v uličkách starého města.",
+        },
+      ],
+    },
+    {
+      dayNumber: 9,
+      activities: [
+        {
+          time: "09:00",
+          description: "Půjčení kol a cyklovýlet podél řeky k historickému hradu.",
+        },
+        {
+          time: "13:30",
+          description: "Tradiční občerstvení v podhradí.",
+        },
+        {
+          time: "17:00",
+          description: "Návrat do města a nákup posledních drobností.",
+        },
+      ],
+    },
+    {
+      dayNumber: 10,
+      activities: [
+        {
+          time: "09:00",
+          description: "Poslední ranní káva a snídaně v oblíbené kavárně.",
+        },
+        {
+          time: "11:00",
+          description: "Balení věcí na hotelu a závěrečný check-out.",
+        },
+        {
+          time: "14:00",
+          description: "Přesun na letiště a odlet domů.",
+        },
+      ],
+    },
+  ],
+};
 
     return NextResponse.json({ destination: winner, aiDays: aiItinerary.days });
   } catch (error) {

@@ -10,6 +10,13 @@ interface AIDay {
   dayNumber: number;
   activities: AIActivity[];
 }
+const chunkDays = (arr: AIDay[], size: number)=>{
+    const chunks = [];
+    for(let i=0; i<arr.length; i+=size){
+      chunks.push(arr.slice(i,i+size));
+    }
+    return chunks;
+  }
 
 export default function Result() {
   const data =
@@ -24,7 +31,10 @@ export default function Result() {
   const tagsArray = data?.destination?.tags || [];
   const daysArray: AIDay[] = data?.aiDays || [];
   const daysOnFirstPage = daysArray.slice(0, 2);
-  const daysOnSecondPage = daysArray.slice(2);
+  
+  const remainingDays = daysArray.slice(2);
+  const extraPages = chunkDays(remainingDays,5);
+
 
   const ColoredLine = ({ color }: { color: string }) => (
     <hr style={{ color, backgroundColor: color, height: 1.5, width: 500 }} />
@@ -76,9 +86,7 @@ export default function Result() {
           )}
 
           {/* 
-             Štítek s nadpisem:
-             - absolute a translate-y-1/2 ho hodí přesně napůl přes spodní hranu obrázku
-             - border-4 uvnitř vytváří ten dvojitý efekt (rámeček v rámečku)
+             The name of the destination in the middle of the picture
             */}
           <div className="absolute bottom-0 translate-y-1/2 w-[85%] bg-[#fbd331]/85 hover:bg-yellow-400 text-amber-950 p-2 rounded-full shadow-md">
             <div className="border-2 border-yellow-300 rounded-full shadow-xl py-3 px-6 flex items-center justify-center">
@@ -89,7 +97,6 @@ export default function Result() {
           </div>
         </div>
 
-        {/* mt-16 posune popisek těsně pod hranu spodního štítku */}
         <div className="mt-10 flex flex-col items-center gap-1 text-gray-600 font-medium tracking-wide w-full">
           <p className="text-sm text-gray-400 text-center leading-relaxed">
             {destination?.description}
@@ -106,18 +113,7 @@ export default function Result() {
           <RenderDaysTable days={daysOnFirstPage}></RenderDaysTable>
         </div>
 
-      </div>
-
-
-      
-      {/*SECOND PAGE*/}
-      <div className="w-full max-w-2xl aspect-[1/1.414] bg-[#fafafa] flex flex-col items-center justify-start border-[3px] border-yellow-400 rounded-2xl p-10 shadow-2xl relative">
-        <div className="w-full my-4 overflow-y-auto max-h-[800px]">
-          <div className="w-full my-4 overflow-y-auto">
-            <RenderDaysTable days={daysOnSecondPage}></RenderDaysTable>
-          </div>
-        </div>
-
+        {daysArray.length <=2 &&(
           <div className="mt-auto print:hidden">
           <Link
             href="/questionnaire"
@@ -126,8 +122,35 @@ export default function Result() {
             Plan Again
           </Link>
         </div>
+        )}
 
       </div>
+
+
+      
+      {/*DYNAMIC PAGES*/}
+      {extraPages.map((pageDays, pageIndex) => (
+        <div 
+          key={pageIndex} 
+          className="w-full max-w-2xl aspect-[1/1.414] bg-[#fafafa] flex flex-col items-center justify-start border-[3px] border-yellow-400 rounded-2xl p-10 shadow-2xl relative"
+        >
+
+          <div className="w-full my-4">
+            <RenderDaysTable days={pageDays} />
+          </div>
+
+          {pageIndex === extraPages.length - 1 && (
+            <div className="mt-auto print:hidden">
+              <Link href="/questionnaire" className="bg-yellow-400 text-black font-semibold px-8 py-4 rounded-full hover:bg-yellow-300 transition shadow-md block text-center">
+                Plan Again
+              </Link>
+            </div>
+          )}
+        </div>
+      ))}
+
+
+
     </div>
   );
 }
