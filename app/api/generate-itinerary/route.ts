@@ -179,75 +179,7 @@ export async function POST(request: Request) {
           description: "Večeře ve stylové čtvrti s výhledem na západ slunce.",
         },
       ],
-    },
-    {
-      dayNumber: 7,
-      activities: [
-        {
-          time: "08:30",
-          description: "Výlet k nedalekému jezeru nebo pobřeží, pronájem lodiček.",
-        },
-        {
-          time: "13:00",
-          description: "Čerstvý rybí oběd přímo v přístavu.",
-        },
-        {
-          time: "16:30",
-          description: "Procházka po malebných útesech a focení panoramat.",
-        },
-      ],
-    },
-    {
-      dayNumber: 8,
-      activities: [
-        {
-          time: "10:00",
-          description: "Galerie moderního umění a interaktivní vědecká výstava.",
-        },
-        {
-          time: "14:30",
-          description: "Degustace místních vín nebo řemeslných piv s odborným výkladem.",
-        },
-        {
-          time: "18:30",
-          description: "Volný večer na nasávání atmosféry v uličkách starého města.",
-        },
-      ],
-    },
-    {
-      dayNumber: 9,
-      activities: [
-        {
-          time: "09:00",
-          description: "Půjčení kol a cyklovýlet podél řeky k historickému hradu.",
-        },
-        {
-          time: "13:30",
-          description: "Tradiční občerstvení v podhradí.",
-        },
-        {
-          time: "17:00",
-          description: "Návrat do města a nákup posledních drobností.",
-        },
-      ],
-    },
-    {
-      dayNumber: 10,
-      activities: [
-        {
-          time: "09:00",
-          description: "Poslední ranní káva a snídaně v oblíbené kavárně.",
-        },
-        {
-          time: "11:00",
-          description: "Balení věcí na hotelu a závěrečný check-out.",
-        },
-        {
-          time: "14:00",
-          description: "Přesun na letiště a odlet domů.",
-        },
-      ],
-    },
+    }
   ],
 };
 
