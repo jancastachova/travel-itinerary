@@ -61,7 +61,7 @@ export default function Result() {
                         {a.time}
                       </span>
                       <span className="text-gray-400 mx-1.5">•</span>
-                      <span>{a.description}</span>
+                      <span className="text-xs">{a.description}</span>
                     </div>
                   </div>
                 ))}

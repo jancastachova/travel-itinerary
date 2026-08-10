@@ -10,8 +10,10 @@
   },
   "dependencies": {
     "@google/genai": "^2.12.0",
+    "@google/generative-ai": "^0.24.1",
     "@prisma/adapter-pg": "^7.8.0",
     "@prisma/client": "^7.8.0",
+    "groq-sdk": "^1.5.0",
     "next": "16.2.9",
     "openai": "^6.48.0",
     "pg": "^8.22.0",
