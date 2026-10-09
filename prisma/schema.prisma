@@ -16,9 +16,9 @@ model Destination {
   name        String   @unique
   country     String
   description String  
-  budget      Budget
+  budget      Budget  //enum (LOW, MEDIUM, HIGH)
   climate     String
-  tags        Tag[]
+  tags        Tag[]    //many-to-many relation with tag
   createdAt   DateTime @default(now())
   isCountry   Boolean @default(false)
 }

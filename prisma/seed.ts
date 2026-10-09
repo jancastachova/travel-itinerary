@@ -1,3 +1,16 @@
+/*
+  --- PRISMA WORKFLOW COMMANDS ---
+  
+  1. Creation of SQL tables in Supabase + generation of Prisma Client
+     npx prisma migrate dev
+
+  2. Filling the database with data from seed
+     npx prisma db seed
+
+  3. Controll of data directly in web browser (studio)
+     npx prisma studio
+*/
+
 import "dotenv/config"
 // import { PrismaClient } from '../app/generated/prisma/client'
 import { PrismaClient } from "@prisma/client"

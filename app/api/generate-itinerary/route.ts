@@ -11,6 +11,10 @@ const prisma = new PrismaClient({ adapter });
 const groq = new Groq({ apiKey: process.env.GROQ_API_KEY });
 
 export async function POST(request: Request) {
+  // DEBUG - smaž po zjištění modelů
+  const models = await groq.models.list()
+  console.log("Available models:", JSON.stringify(models, null, 2))
+
   try {
     const body = await request.json();
     const destinations = await prisma.destination.findMany({
@@ -27,8 +31,9 @@ export async function POST(request: Request) {
     const prompt = `
       Create a detailed and nice itinerary for destination: ${winner.name}. Number of days: ${body.days}
       Style of vacation: Budget: ${body.budget}, Interests: ${body.preferredTags?.join(", ") || "general"}
-      Be specific,not general and put tips for things etc.
+      Be specific,not general and put tips for things etc, but also do not make it so detailed, keep it brief
       Always start the trip with arrival and end with departure.
+      Additionally, to all places you're about to generate please add their correct latitude and longitude
 
       RETURN ONLY A VALID JSON OBJECT formatted like this(no extra commentary, no markdown text):
       {
@@ -36,7 +41,7 @@ export async function POST(request: Request) {
           {
             "dayNumber": 1,
             "activities": [
-              { "time": "09:00", "description": "Arrival at airport and hotel check-in" }
+              { "time": "09:00", "description": "Arrival at airport and hotel check-in", "lat": -8.7481, "lng": 115.1671 }
             ]
           }
         ]
@@ -54,7 +59,7 @@ export async function POST(request: Request) {
           content: prompt,
         },
       ],
-      model: "llama-3.3-70b-versatile",
+      model: "openai/gpt-oss-120b",
       response_format: { type: "json_object" },
     });
 
