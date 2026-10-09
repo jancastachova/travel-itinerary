@@ -1,5 +1,6 @@
 "use client";
 import Link from "next/link";
+import Map from "../components/TripMap"
 
 interface AIActivity {
   time: string;
@@ -139,7 +140,6 @@ export default function Result() {
       </div>
 
 
-      
       {/*DYNAMIC PAGES*/}
       {extraPages.map((pageDays, pageIndex) => (
         <div 
@@ -153,6 +153,7 @@ export default function Result() {
 
           {pageIndex === extraPages.length - 1 && (
             <div className="flex f-row gap-5">
+              <Map activities={acitivitiesWithinId} />
 
             
             <div className="mt-auto print:hidden">
