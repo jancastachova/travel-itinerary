@@ -11,10 +11,6 @@ const prisma = new PrismaClient({ adapter });
 const groq = new Groq({ apiKey: process.env.GROQ_API_KEY });
 
 export async function POST(request: Request) {
-  // DEBUG - smaž po zjištění modelů
-  const models = await groq.models.list()
-  console.log("Available models:", JSON.stringify(models, null, 2))
-
   try {
     const body = await request.json();
     const destinations = await prisma.destination.findMany({

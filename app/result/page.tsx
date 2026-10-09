@@ -4,6 +4,8 @@ import Link from "next/link";
 interface AIActivity {
   time: string;
   description: string;
+  lat: number;
+  lng: number;
 }
 
 interface AIDay {
@@ -34,6 +36,15 @@ export default function Result() {
   
   const remainingDays = daysArray.slice(2);
   const extraPages = chunkDays(remainingDays,5);
+
+  let activityCounter = 0;
+  const acitivitiesWithinId = daysArray.flatMap(day =>
+    day.activities.map(activity => ({
+      ...activity,
+      id: ++activityCounter,
+      dayNumber: day.dayNumber
+    }))
+  )
 
 
   const ColoredLine = ({ color }: { color: string }) => (
