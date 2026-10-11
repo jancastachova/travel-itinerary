@@ -1,40 +1,53 @@
 "use client";
 import Link from "next/link";
+import Map from "../components/TripMap";
 
+//interfaces
 interface AIActivity {
   time: string;
   description: string;
+  lat: number;
+  lng: number;
 }
 
 interface AIDay {
   dayNumber: number;
   activities: AIActivity[];
 }
-const chunkDays = (arr: AIDay[], size: number)=>{
-    const chunks = [];
-    for(let i=0; i<arr.length; i+=size){
-      chunks.push(arr.slice(i,i+size));
-    }
-    return chunks;
+//takes a input of days and separates it to smaller pieces, each part is a new site
+const chunkDays = (arr: AIDay[], size: number) => {
+  const chunks = [];
+  for (let i = 0; i < arr.length; i += size) {
+    chunks.push(arr.slice(i, i + size));
   }
+  return chunks;
+};
 
 export default function Result() {
+  //data from local storage (questionnaire page, loads the json saved in API call)
   const data =
     typeof window !== "undefined"
       ? JSON.parse(localStorage.getItem("result") || "{}")
       : {};
-
+  //preparation of data
   const destination = data?.destination;
   const image = destination?.name
     ? `/images/${destination.name.toLowerCase()}.jpg`
     : "";
-  const tagsArray = data?.destination?.tags || [];
-  const daysArray: AIDay[] = data?.aiDays || [];
-  const daysOnFirstPage = daysArray.slice(0, 2);
-  
-  const remainingDays = daysArray.slice(2);
-  const extraPages = chunkDays(remainingDays,5);
+  const daysArray: AIDay[] = data?.aiDays || []; //fields returned by AI
+  const daysOnFirstPage = daysArray.slice(0, 2); //first two days on the first page
 
+  const remainingDays = daysArray.slice(2);
+  const extraPages = chunkDays(remainingDays, 4); //starts from 3 page, 4 pages max on one site
+
+  let activityCounter = 0;
+  const acitivitiesWithinId = daysArray.flatMap((day) =>
+    day.activities.map((activity) => ({
+      ...activity,
+      id: ++activityCounter,
+      dayNumber: day.dayNumber,
+    })),
+  );
 
   const ColoredLine = ({ color }: { color: string }) => (
     <hr style={{ color, backgroundColor: color, height: 1.5, width: 500 }} />
@@ -61,7 +74,7 @@ export default function Result() {
                         {a.time}
                       </span>
                       <span className="text-gray-400 mx-1.5">•</span>
-                      <span>{a.description}</span>
+                      <span className="text-xs">{a.description}</span>
                     </div>
                   </div>
                 ))}
@@ -75,7 +88,6 @@ export default function Result() {
 
   return (
     <div className="w-full min-h-screen bg-gray-100 p-8 flex flex-row flex-wrap items-start justify-center content-center gap-8 overflow-y-auto print:block print:bg-white print:p-0">
-      
       <div className="w-full max-w-2xl aspect-[1/1.414] bg-[#fafafa] flex flex-col items-center justify-start border-[3px] border-yellow-400 rounded-2xl p-10 shadow-2xl relative print:break-after-page print:w-[210mm] print:h-[297mm] print:border-none print:shadow-none print:bg-white print:rounded-none">
         <div className="relative w-full flex flex-col items-center">
           {image && (
@@ -111,60 +123,53 @@ export default function Result() {
         </div>
 
         <div className="w-full my-4 overflow-y-auto">
-          <RenderDaysTable days={daysOnFirstPage}></RenderDaysTable>
+          <RenderDaysTable days={daysOnFirstPage} />
         </div>
 
-        {daysArray.length <=2 &&(
+        {daysArray.length <= 2 && (
           <div className="mt-auto print:hidden">
-          <Link
-            href="/questionnaire"
-            className="bg-yellow-400 text-black font-semibold px-8 py-4 rounded-full hover:bg-yellow-300 transition"
-          >
-            Plan Again
-          </Link>
-        </div>
+            <Link
+              href="/questionnaire"
+              className="bg-yellow-400 text-black font-semibold px-8 py-4 rounded-full hover:bg-yellow-300 transition"
+            >
+              Plan Again
+            </Link>
+          </div>
         )}
-
       </div>
 
-
-      
       {/*DYNAMIC PAGES*/}
       {extraPages.map((pageDays, pageIndex) => (
-        <div 
-            key={pageIndex} 
-            className="w-full max-w-2xl aspect-[1/1.414] bg-[#fafafa] flex flex-col items-center justify-start border-[3px] border-yellow-400 rounded-2xl p-10 shadow-2xl relative print:break-after-page print:w-[210mm] print:h-[297mm] print:border-none print:shadow-none print:bg-white print:rounded-none"
-          >
-
+        <div
+          key={pageIndex}
+          className="w-full max-w-2xl aspect-[1/1.414] overflow-hidden bg-[#fafafa] flex flex-col items-center justify-start border-[3px] border-yellow-400 rounded-2xl p-10 shadow-2xl relative print:break-after-page print:w-[210mm] print:h-[297mm] print:border-none print:shadow-none print:bg-white print:rounded-none"
+        >
           <div className="w-full my-4">
             <RenderDaysTable days={pageDays} />
           </div>
 
           {pageIndex === extraPages.length - 1 && (
-            <div className="flex f-row gap-5">
+            <div className="w-full flex flex-col gap-4">
+              <Map activities={acitivitiesWithinId} />
 
-            
-            <div className="mt-auto print:hidden">
-              <Link href="/questionnaire" className="bg-yellow-400 text-black px-8 py-4 rounded-full hover:bg-yellow-300 transition shadow-md block text-center">
-                Plan Again
-              </Link>
-            </div>
-            <div className="mt-auto print:hidden">
-              <button 
-              onClick={()=>{
-                window.print()
-              }}
-              className="bg-yellow-400 text-black px-8 py-4 rounded-full hover:bg-yellow-300 transition shadow-md block text-center">
+              <div className="flex flex-row gap-5 justify-center print:hidden">
+                <Link
+                  href="/questionnaire"
+                  className="bg-yellow-400 text-black px-8 py-4 rounded-full hover:bg-yellow-300 transition shadow-md"
+                >
+                  Plan Again
+                </Link>
+                <button
+                  onClick={() => window.print()}
+                  className="bg-yellow-400 text-black px-8 py-4 rounded-full hover:bg-yellow-300 transition shadow-md"
+                >
                   Download PDF
-              </button>
-            </div>  
-          </div>
+                </button>
+              </div>
+            </div>
           )}
         </div>
       ))}
-
-
-
     </div>
   );
 }
