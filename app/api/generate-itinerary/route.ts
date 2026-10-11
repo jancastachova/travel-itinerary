@@ -25,32 +25,54 @@ export async function POST(request: Request) {
       );
 
     const prompt = `
-      Create a detailed and nice itinerary for destination: ${winner.name}. Number of days: ${body.days}
-      Style of vacation: Budget: ${body.budget}, Interests: ${body.preferredTags?.join(", ") || "general"}
-      Be specific,not general and put tips for things etc, but also do not make it so detailed, KEEP IT BRIEF(MAX 5 TIMES A DAY)
-      Make sure it has a good logistics.. that each day makes sence and places are close to each other.
-      Always start the trip with arrival and end with departure.
-      The tags are VERY important, it there is RELAXED tag, make sure you do not put so many markers etc.
-      Additionally, to all places you're about to generate please add their correct latitude and longitude (please keep in mind that i will show the points on the map so do not overload the same places with the exaclty same lat and long)
+      Create a tailored, high-quality travel itinerary based on the following parameters:
+      - Destination: ${winner.name}
+      - Duration: ${body.days} days
+      - Budget Level: ${body.budget}
+      - Interests / Tags: ${body.preferredTags?.join(", ") || "general"}
 
-      RETURN ONLY A VALID JSON OBJECT formatted like this(no extra commentary, no markdown text):
+      CRITICAL ITINERARY RULES:
+      1. NON-BASIC & SPECIFIC: Avoid generic descriptions like "visit local market" or "eat dinner." Name specific local spots, recommended restaurants, secret/hidden gems, and distinct places to relax or explore based on the user's tags.
+      2. TAG-BASED PACING & ACTIVITY COUNTS:
+        - Base the entire vibe of the trip on the provided tags.
+        - Keep daily activity counts between 2 to 6 items per day:
+          * If tags include "RELAXED", limit to 2–4 activities/day with ample leisure time and relaxed spot recommendations.
+          * If tags include "ADVENTURE" or "SIGHTSEEING", range between 3–6 activities/day.
+      3. TRIP BOUNDARIES: Always start Day 1 with arrival/hotel transfer and end the final day with departure.
+      4. SMART LOGISTICS: Group activities geographically each day so travel is logical, manageable, and nearby. Avoid excessive or erratic back-and-forth travel across the destination.
+      5. MAP MARKERS & COORDINATES (CRITICAL):
+        - Provide accurate latitude ('lat') and longitude ('lng') for EVERY place/activity generated.
+        - All points will be plotted on a map. EVEN IF TWO PLACES SHARE THE EXACT SAME LOCATION (e.g., hotel check-in, hotel dining, or nearby venues), NEVER output identical lat and lng coordinates. Apply a micro-offset (e.g., ±0.0005 to ±0.0015) so every single marker remains distinct and visible on the map.
+
+      STRICT OUTPUT FORMAT RULES:
+      - Return ONLY a raw, valid JSON object.
+      - Do NOT wrap the JSON in markdown code blocks (no \`\`\`json or \`\`\`).
+      - Do NOT include intro, outro, or conversational text.
+
+      JSON STRUCTURE:
       {
         "days": [
           {
             "dayNumber": 1,
             "activities": [
-              { "time": "09:00", "description": "Arrival at airport and hotel check-in", "lat": -8.7481, "lng": 115.1671 }
+              {
+                "time": "09:00",
+                "description": "Arrival at airport, pick up pocket Wi-Fi, and transfer to hotel via prepaid taxi.",
+                "lat": -8.7481,
+                "lng": 115.1671
+              }
             ]
           }
         ]
       }
-    `;
+      `;
 
     const chatCompletion = await groq.chat.completions.create({
       messages: [
         {
           role: "system",
-          content: "You are an elite travel guide. You respond ONLY with valid JSON formatted file",
+          content:
+            "You are an elite travel guide. You respond ONLY with valid JSON formatted file",
         },
         {
           role: "user",
@@ -69,7 +91,7 @@ export async function POST(request: Request) {
     console.error("AI Error:", error);
     return NextResponse.json(
       { error: error.message || "Something went wrong" },
-      { status: 500 }
+      { status: 500 },
     );
   }
 }
