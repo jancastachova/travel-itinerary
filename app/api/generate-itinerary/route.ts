@@ -28,8 +28,9 @@ export async function POST(request: Request) {
       Create a detailed and nice itinerary for destination: ${winner.name}. Number of days: ${body.days}
       Style of vacation: Budget: ${body.budget}, Interests: ${body.preferredTags?.join(", ") || "general"}
       Be specific,not general and put tips for things etc, but also do not make it so detailed, KEEP IT BRIEF(MAX 5 TIMES A DAY)
+      Make sure it has a good logistics.. that each day makes sence and places are close to each other.
       Always start the trip with arrival and end with departure.
-      Additionally, to all places you're about to generate please add their correct latitude and longitude
+      Additionally, to all places you're about to generate please add their correct latitude and longitude (please keep in mind that i will show the points on the map so do not overload the same places with the exaclty same lat and long)
 
       RETURN ONLY A VALID JSON OBJECT formatted like this(no extra commentary, no markdown text):
       {

@@ -36,7 +36,7 @@ export default function Result() {
   const daysOnFirstPage = daysArray.slice(0, 2);
   
   const remainingDays = daysArray.slice(2);
-  const extraPages = chunkDays(remainingDays,5);
+  const extraPages = chunkDays(remainingDays,4);
 
   let activityCounter = 0;
   const acitivitiesWithinId = daysArray.flatMap(day =>
@@ -144,7 +144,7 @@ export default function Result() {
       {extraPages.map((pageDays, pageIndex) => (
         <div 
             key={pageIndex} 
-            className="w-full max-w-2xl aspect-[1/1.414] bg-[#fafafa] flex flex-col items-center justify-start border-[3px] border-yellow-400 rounded-2xl p-10 shadow-2xl relative print:break-after-page print:w-[210mm] print:h-[297mm] print:border-none print:shadow-none print:bg-white print:rounded-none"
+            className="w-full max-w-2xl aspect-[1/1.414] overflow-hidden bg-[#fafafa] flex flex-col items-center justify-start border-[3px] border-yellow-400 rounded-2xl p-10 shadow-2xl relative print:break-after-page print:w-[210mm] print:h-[297mm] print:border-none print:shadow-none print:bg-white print:rounded-none"
           >
 
           <div className="w-full my-4">
@@ -152,26 +152,22 @@ export default function Result() {
           </div>
 
           {pageIndex === extraPages.length - 1 && (
-            <div className="flex f-row gap-5">
-              <Map activities={acitivitiesWithinId} />
+  <div className="w-full flex flex-col gap-4">
+    
+    <Map activities={acitivitiesWithinId} />
 
-            
-            <div className="mt-auto print:hidden">
-              <Link href="/questionnaire" className="bg-yellow-400 text-black px-8 py-4 rounded-full hover:bg-yellow-300 transition shadow-md block text-center">
-                Plan Again
-              </Link>
-            </div>
-            <div className="mt-auto print:hidden">
-              <button 
-              onClick={()=>{
-                window.print()
-              }}
-              className="bg-yellow-400 text-black px-8 py-4 rounded-full hover:bg-yellow-300 transition shadow-md block text-center">
-                  Download PDF
-              </button>
-            </div>  
-          </div>
-          )}
+    <div className="flex flex-row gap-5 justify-center print:hidden">
+      <Link href="/questionnaire" className="bg-yellow-400 text-black px-8 py-4 rounded-full hover:bg-yellow-300 transition shadow-md">
+        Plan Again
+      </Link>
+      <button 
+        onClick={() => window.print()}
+        className="bg-yellow-400 text-black px-8 py-4 rounded-full hover:bg-yellow-300 transition shadow-md">
+        Download PDF
+      </button>
+    </div>
+  </div>
+)}
         </div>
       ))}
 

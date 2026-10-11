@@ -34,6 +34,10 @@ const Map = ({ activities }: MapProps) => {
       zoom: zoom
     });
 
+    setTimeout(()=>{
+      map.current?.invalidateSize();
+    },100);
+
     L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
       attribution: "© OpenStreetMap contributors",
     }).addTo(map.current);
@@ -44,7 +48,7 @@ const Map = ({ activities }: MapProps) => {
         className: "",
         html: `<div style="
           background: #facc15;
-          border: 2px solid #d97706;
+          border: 1px solid #d97706;
           border-radius: 50%;
           width: 28px;
           height: 28px;
@@ -71,8 +75,8 @@ const Map = ({ activities }: MapProps) => {
   }, [activities, zoom]);
 
   return (
-    <div style={{ width: '100%', height: '300px' }}>
-      <div ref={mapContainer} style={{ width: '100%', height: '100%' }} />
+    <div style={{ width: '100%', height: '250px'}}>
+      <div ref={mapContainer} style={{ width: '100%', height: '100%', borderRadius: '5%', border:' 2px solid #facc15' }} />
     </div>
   )
 }
