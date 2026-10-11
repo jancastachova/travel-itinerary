@@ -94,7 +94,7 @@ export default function Result() {
             <img
               src={image}
               alt=""
-              className="w-500 h-90 rounded object-cover"
+              className="w-400 h-80 rounded object-cover"
             />
           )}
 

@@ -4,7 +4,8 @@ type UserAnswers = {
     budget: 'LOW' | 'MEDIUM' | 'HIGH'
     preferredTags: string[]
     climate?: string
-    isCountry: boolean
+    isCountry: boolean,
+    days: number
 }
 
 type DestinationWithTags = {
@@ -17,6 +18,9 @@ type DestinationWithTags = {
     tags: { name: string }[]
     isCountry: boolean
 }
+
+//hardcoded european destionation -> after having more destionations i will boolean to my prisma schema
+const european = ['Barcelona', 'Prague', 'Paris', 'Lisbon', 'Athens', 'Marrakech', 'Mykonos', 'Norway', 'Switzerland']
 
 export function scoreDestinations(
     userAnswers: UserAnswers,
@@ -83,6 +87,10 @@ function calculateScore(userAnswers: UserAnswers, destination: DestinationWithTa
     }
 
     if (destination.isCountry !== userAnswers.isCountry) {
+        return -100
+    }
+
+    if(userAnswers.days < 5 && !european.includes(destination.name)){
         return -100
     }
 

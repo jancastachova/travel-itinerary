@@ -511,7 +511,7 @@ export default function Home() {
         headers: { "Content-type": "application/json" },
         body: JSON.stringify(finalObject),
       }),
-      new Promise((resolve) =>setTimeout(resolve, 5000))
+      new Promise((resolve) =>setTimeout(resolve, 10000))
     ]);
       
       const data = await response.json();
