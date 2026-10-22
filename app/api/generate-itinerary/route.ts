@@ -8,10 +8,9 @@ import Groq from "groq-sdk";
 const adapter = new PrismaPg({ connectionString: process.env.DATABASE_URL! });
 const prisma = new PrismaClient({ adapter });
 
-const groq = new Groq({ apiKey: process.env.GROQ_API_KEY });
-
 export async function POST(request: Request) {
   try {
+    const groq = new Groq({ apiKey: process.env.GROQ_API_KEY });
     const body = await request.json();
     const destinations = await prisma.destination.findMany({
       include: { tags: true },
