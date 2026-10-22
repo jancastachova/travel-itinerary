@@ -42,9 +42,7 @@ Updates made in v3 so far:
 
 Update to be made in this version:
 - improve the style and UI of the PDF export - for now it's very basic
-- small improvement in algorithm - if less than 5 days selected, remove all countries outside of europe
 - improve the map
-- improve the prompt
 
 ## How to run locally
 

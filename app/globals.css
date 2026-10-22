@@ -17,6 +17,19 @@
   }
 }
 
+@media print{
+  body {
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+  .print-page {
+    break-after: page;
+  }
+  .print-page:last-child {
+    break-after: auto;
+  }
+}
+
 body {
   background: var(--background);
   color: var(--foreground);

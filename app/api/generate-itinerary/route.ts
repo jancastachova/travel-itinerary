@@ -25,47 +25,33 @@ export async function POST(request: Request) {
       );
 
     const prompt = `
-      Create a tailored, high-quality travel itinerary based on the following parameters:
-      - Destination: ${winner.name}
-      - Duration: ${body.days} days
-      - Budget Level: ${body.budget}
-      - Interests / Tags: ${body.preferredTags?.join(", ") || "general"}
+Create a structured travel itinerary in raw JSON format.
 
-      CRITICAL ITINERARY RULES:
-      1. NON-BASIC & SPECIFIC: Avoid generic descriptions like "visit local market" or "eat dinner." Name specific local spots, recommended restaurants, secret/hidden gems, and distinct places to relax or explore based on the user's tags.
-      2. TAG-BASED PACING & ACTIVITY COUNTS:
-        - Base the entire vibe of the trip on the provided tags.
-        - Keep daily activity counts between 2 to 6 items per day:
-          * If tags include "RELAXED", limit to 2–4 activities/day with ample leisure time and relaxed spot recommendations.STRICT REQUIREMENT!!!! 
-          * If tags include "ADVENTURE" or "SIGHTSEEING", range between 3–6 activities/day. STRICT REQUIREMENT!!!! 
-      3. TRIP BOUNDARIES: Always start Day 1 with arrival/hotel transfer and end the final day with departure.
-      4. SMART LOGISTICS: Group activities geographically each day so travel is logical, manageable, and nearby. Avoid excessive or erratic back-and-forth travel across the destination.
-      5. MAP MARKERS & COORDINATES (CRITICAL):
-        - Provide accurate latitude ('lat') and longitude ('lng') for EVERY place/activity generated.
-        - All points will be plotted on a map. EVEN IF TWO PLACES SHARE THE EXACT SAME LOCATION (e.g., hotel check-in, hotel dining, or nearby venues), NEVER output identical lat and lng coordinates. Apply a micro-offset (e.g., ±0.0005 to ±0.0015) so every single marker remains distinct and visible on the map.
+PARAMETERS:
+- Destination: ${winner.name}
+- Days: ${body.days}
+- Budget: ${body.budget}
+- Interests: ${body.preferredTags?.join(", ") || "general"}
 
-      STRICT OUTPUT FORMAT RULES:
-      - Return ONLY a raw, valid JSON object.
-      - Do NOT wrap the JSON in markdown code blocks (no \`\`\`json or \`\`\`).
-      - Do NOT include intro, outro, or conversational text.
+RULES:
+1. Pace: 2 to 5 activities per day(does not have to be same number of activities every day) based on tags (fewer if relaxed type of vacation was chosen). 
+2. Boundaries: Start Day 1 with arrival/transfer and end the last day with departure.
+3. Logistics: Group geographically close locations together on the same day.
+4. Specificity: Recommend specific spots/restaurants. Do not be too basic with the itinerary. Keep descriptions short (10-15 words max).
+5. Map Coordinates: Output accurate "lat" and "lng" as numbers. If locations overlap, add a minor coordinate offset (+/- 0.001) so markers remain distinct.
 
-      JSON STRUCTURE:
-      {
-        "days": [
-          {
-            "dayNumber": 1,
-            "activities": [
-              {
-                "time": "09:00",
-                "description": "Arrival at airport, pick up pocket Wi-Fi, and transfer to hotel via prepaid taxi.",
-                "lat": -8.7481,
-                "lng": 115.1671
-              }
-            ]
-          }
-        ]
-      }
-      `;
+STRICT JSON ONLY (no markdown code blocks, no intro text):
+{
+  "days": [
+    {
+      "dayNumber": 1,
+      "activities": [
+        { "time": "09:00", "description": "Arrival at airport and private transfer to hotel.", "lat": 31.6189, "lng": -8.0363 }
+      ]
+    }
+  ]
+}
+`;
 
     const chatCompletion = await groq.chat.completions.create({
       messages: [
@@ -81,6 +67,7 @@ export async function POST(request: Request) {
       ],
       model: "openai/gpt-oss-120b",
       response_format: { type: "json_object" },
+      max_tokens: 4096,
     });
 
     const content = chatCompletion.choices[0]?.message?.content || "{}";

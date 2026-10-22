@@ -20,14 +20,14 @@ interface MapProps {
 const Map = ({ activities }: MapProps) => {
   const mapContainer = useRef<HTMLDivElement>(null);
   const map = useRef<L.Map | null>(null);
-  const [zoom] = useState(12);
+  const [zoom] = useState(13);
 
   useEffect(() => {
     if (map.current) return;
     if (activities.length === 0) return;
 
     // center na první aktivitu
-    const firstActivity = activities[0];
+    const firstActivity = activities[1];
 
     map.current = new L.Map(mapContainer.current!, {
       center: L.latLng(firstActivity.lat, firstActivity.lng),
@@ -74,9 +74,12 @@ const Map = ({ activities }: MapProps) => {
   }, [activities, zoom]);
 
   return (
-    <div style={{ width: '100%', height: '250px'}}>
+    <div 
+      className="print:break-inside-avoid"
+      style={{ width: '100%', height: '250px'}}>
       <div ref={mapContainer} style={{ width: '100%', height: '100%', borderRadius: '5%', border:' 2px solid #facc15' }} />
     </div>
+
   )
 }
 
