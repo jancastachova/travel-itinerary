@@ -36,7 +36,7 @@ Based on the chosen destination and entered days, the app now connects to a LLM 
 
 After the user finishes the questionnaire, the API route is called, directing to the scoring algorithm and AI generation, which displays the results on the final result page.
 
-Updates made in v3 so far:
+## Updates made in v3 so far
 - added LLM princple - modified API route to accept AI promts (using groq)
 - changed font from default to Poppins
 - added loading state
@@ -44,6 +44,13 @@ Updates made in v3 so far:
 - dynamic generation of pages showing days and its activities
 - PDF export
 - map added on the last page showing exact latitude and longitude of the each activity (using leaflet)
+
+
+## Upcoming in v4
+- [ ] **User Accounts & Authentication:** Integration with Supabase Auth(Google & Email login)
+- [ ] **Saved Itineraries and history:** User dashboard to save trips, view history, and "Plan again"
+- [ ] **Top 3 Destination Selection:** Enhance scoring algorithm to propose top 3 matching destinations before LLM itinerary generation
+- [ ] **Code Architecture and refactoring:** Codebase cleanup, component modularization, and improved state management
 
 
 ## How to run locally
