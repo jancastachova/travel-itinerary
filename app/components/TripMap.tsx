@@ -76,7 +76,7 @@ const Map = ({ activities }: MapProps) => {
   return (
     <div 
       className="print:break-inside-avoid"
-      style={{ width: '100%', height: '250px'}}>
+      style={{ width: '100%', height: '500px'}}>
       <div ref={mapContainer} style={{ width: '100%', height: '100%', borderRadius: '5%', border:' 2px solid #facc15' }} />
     </div>
 

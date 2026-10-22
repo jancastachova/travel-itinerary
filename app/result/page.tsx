@@ -57,7 +57,7 @@ export default function Result() {
     <table className="w-full table-fixed border-separate border-spacing-y-2 border-spacing-x-3">
       <tbody>
         {days.map((item) => (
-          <tr key={item.dayNumber}>
+          <tr key={item.dayNumber} className="print:break-inside-avoid">
             <td className="w-[20%] border border-yellow-300 bg-yellow-400 p-3 rounded-lg text-gray-700 align-middle text-center text-xl">
               DAY <br></br> {item.dayNumber}
             </td>
@@ -87,8 +87,8 @@ export default function Result() {
   );
 
   return (
-    <div className="w-full min-h-screen bg-gray-100 p-8 flex flex-row flex-wrap items-start justify-center content-center gap-8 overflow-y-auto print:block print:bg-white print:p-0">
-      <div className="w-full max-w-2xl aspect-[1/1.414] bg-[#fafafa] flex flex-col items-center justify-start border-[3px] border-yellow-400 rounded-2xl p-10 shadow-2xl relative print-page print:w-[210mm] print:h-[297mm] print:border-none print:shadow-none print:bg-white print:rounded-none">
+    <div className="w-full bg-gray-100 p-8 flex flex-row flex-wrap items-start print:block print:min-h-0 print:bg-white print:p-0 justify-center content-center gap-8 overflow-y-auto print:p-0">
+      <div className="w-full max-w-2xl aspect-[1/1.414] print:aspect-auto print:p-6 bg-[#fafafa] flex flex-col items-center justify-start border-[3px] border-yellow-400 rounded-2xl p-10 shadow-2xl relative print-page print:w-[210mm] print:border-none print:shadow-none print:bg-white print:rounded-none">
         <div className="relative w-full flex flex-col items-center">
           {image && (
             <img
@@ -126,18 +126,13 @@ export default function Result() {
           <RenderDaysTable days={daysOnFirstPage} />
         </div>
 
-        {daysArray.length <= 2 && (
-          <div className="mt-auto print:hidden">
-  
-          </div>
-        )}
       </div>
 
           {/*DYNAMIC PAGES*/}
           {extraPages.map((pageDays, pageIndex) => (
       <div
         key={pageIndex}
-        className="w-full max-w-2xl aspect-[1/1.414] bg-[#fafafa] flex flex-col items-center justify-start border-[3px] border-yellow-400 rounded-2xl p-10 shadow-2xl relative print-page print:w-[210mm] print:h-[296mm] print:border-none print:shadow-none print:bg-white print:rounded-none"
+        className="w-full max-w-2xl aspect-[1/1.414] print:aspect-auto print:p-6 bg-[#fafafa] flex flex-col items-center justify-start border-[3px] border-yellow-400 rounded-2xl p-10 shadow-2xl relative print-page print:w-[210mm] print:border-none print:shadow-none print:bg-white print:rounded-none"
       >
         <div className="w-full my-4">
           <RenderDaysTable days={pageDays} />
@@ -146,7 +141,7 @@ export default function Result() {
     ))}
 
     {/* MAP PAGE */}
-    <div className="w-full max-w-2xl aspect-[1/1.414] bg-[#fafafa] flex flex-col items-center justify-start border-[3px] border-yellow-400 rounded-2xl p-10 shadow-2xl relative print-page print:w-[210mm] print:h-[296mm] print:border-none print:shadow-none print:bg-white print:rounded-none">
+    <div className="w-full max-w-2xl aspect-[1/1.414] print:aspect-auto print:p-6 bg-[#fafafa] flex flex-col items-center justify-start border-[3px] border-yellow-400 rounded-2xl p-10 shadow-2xl relative print-page print:w-[210mm] print:border-none print:shadow-none print:bg-white print:rounded-none">
       <h2 className="text-2xl text-gray-700 mb-6">Your Trip Map</h2>
 
       <div className="w-full print:break-inside-avoid">

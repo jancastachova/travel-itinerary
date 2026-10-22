@@ -42,7 +42,6 @@ Updates made in v3 so far:
 
 Update to be made in this version:
 - improve the style and UI of the PDF export - for now it's very basic
-- improve the map
 
 ## How to run locally
 
