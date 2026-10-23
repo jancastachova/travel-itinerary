@@ -1,7 +1,11 @@
 "use client";
 export const dynamic = "force-dynamic";
 import Link from "next/link";
-import Map from "../components/TripMap";
+import dynamicImport from "next/dynamic";
+const Map = dynamicImport(() => import("../components/TripMap"), {
+  ssr: false,
+  loading: () => <p className="text-center py-10">Loading map...</p>,
+});
 
 //interfaces
 interface AIActivity {
