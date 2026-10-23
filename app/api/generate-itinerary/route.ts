@@ -8,10 +8,9 @@ import Groq from "groq-sdk";
 const adapter = new PrismaPg({ connectionString: process.env.DATABASE_URL! });
 const prisma = new PrismaClient({ adapter });
 
-const groq = new Groq({ apiKey: process.env.GROQ_API_KEY });
-
 export async function POST(request: Request) {
   try {
+    const groq = new Groq({ apiKey: process.env.GROQ_API_KEY });
     const body = await request.json();
     const destinations = await prisma.destination.findMany({
       include: { tags: true },
@@ -25,32 +24,40 @@ export async function POST(request: Request) {
       );
 
     const prompt = `
-      Create a detailed and nice itinerary for destination: ${winner.name}. Number of days: ${body.days}
-      Style of vacation: Budget: ${body.budget}, Interests: ${body.preferredTags?.join(", ") || "general"}
-      Be specific,not general and put tips for things etc, but also do not make it so detailed, KEEP IT BRIEF(MAX 5 TIMES A DAY)
-      Make sure it has a good logistics.. that each day makes sence and places are close to each other.
-      Always start the trip with arrival and end with departure.
-      The tags are VERY important, it there is RELAXED tag, make sure you do not put so many markers etc.
-      Additionally, to all places you're about to generate please add their correct latitude and longitude (please keep in mind that i will show the points on the map so do not overload the same places with the exaclty same lat and long)
+Create a structured travel itinerary in raw JSON format.
 
-      RETURN ONLY A VALID JSON OBJECT formatted like this(no extra commentary, no markdown text):
-      {
-        "days": [
-          {
-            "dayNumber": 1,
-            "activities": [
-              { "time": "09:00", "description": "Arrival at airport and hotel check-in", "lat": -8.7481, "lng": 115.1671 }
-            ]
-          }
-        ]
-      }
-    `;
+PARAMETERS:
+- Destination: ${winner.name}
+- Days: ${body.days}
+- Budget: ${body.budget}
+- Interests: ${body.preferredTags?.join(", ") || "general"}
+
+RULES:
+1. Pace: 2 to 5 activities per day(does not have to be same number of activities every day) based on tags (fewer if relaxed type of vacation was chosen). 
+2. Boundaries: Start Day 1 with arrival/transfer and end the last day with departure.
+3. Logistics: Group geographically close locations together on the same day.
+4. Specificity: Recommend specific spots/restaurants. Do not be too basic with the itinerary. Keep descriptions short (10-15 words max).
+5. Map Coordinates: Output accurate "lat" and "lng" as numbers. If locations overlap, add a minor coordinate offset (+/- 0.001) so markers remain distinct.
+
+STRICT JSON ONLY (no markdown code blocks, no intro text):
+{
+  "days": [
+    {
+      "dayNumber": 1,
+      "activities": [
+        { "time": "09:00", "description": "Arrival at airport and private transfer to hotel.", "lat": 31.6189, "lng": -8.0363 }
+      ]
+    }
+  ]
+}
+`;
 
     const chatCompletion = await groq.chat.completions.create({
       messages: [
         {
           role: "system",
-          content: "You are an elite travel guide. You respond ONLY with valid JSON formatted file",
+          content:
+            "You are an elite travel guide. You respond ONLY with valid JSON formatted file",
         },
         {
           role: "user",
@@ -59,6 +66,7 @@ export async function POST(request: Request) {
       ],
       model: "openai/gpt-oss-120b",
       response_format: { type: "json_object" },
+      max_tokens: 4096,
     });
 
     const content = chatCompletion.choices[0]?.message?.content || "{}";
@@ -69,7 +77,7 @@ export async function POST(request: Request) {
     console.error("AI Error:", error);
     return NextResponse.json(
       { error: error.message || "Something went wrong" },
-      { status: 500 }
+      { status: 500 },
     );
   }
 }
