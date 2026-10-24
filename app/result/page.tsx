@@ -2,23 +2,13 @@
 export const dynamic = "force-dynamic";
 import Link from "next/link";
 import dynamicImport from "next/dynamic";
+import ItineraryTable, {AIDay} from "../components/ItineraryTable"; 
+
 const Map = dynamicImport(() => import("../components/TripMap"), {
   ssr: false,
   loading: () => <p className="text-center py-10">Loading map...</p>,
 });
 
-//interfaces
-interface AIActivity {
-  time: string;
-  description: string;
-  lat: number;
-  lng: number;
-}
-
-interface AIDay {
-  dayNumber: number;
-  activities: AIActivity[];
-}
 //takes a input of days and separates it to smaller pieces, each part is a new site
 const chunkDays = (arr: AIDay[], size: number) => {
   const chunks = [];
@@ -58,39 +48,6 @@ export default function Result() {
     <hr style={{ color, backgroundColor: color, height: 1.5, width: 500 }} />
   );
 
-  const RenderDaysTable = ({ days }: { days: AIDay[] }) => (
-    <table className="w-full table-fixed border-separate border-spacing-y-2 border-spacing-x-3">
-      <tbody>
-        {days.map((item) => (
-          <tr key={item.dayNumber} className="print:break-inside-avoid">
-            <td className="w-[20%] border border-yellow-300 bg-yellow-400 p-3 rounded-lg text-gray-700 align-middle text-center text-xl">
-              DAY <br></br> {item.dayNumber}
-            </td>
-
-            <td className="w-[80%] border border-yellow-300 p-3 rounded-lg text-gray-600 align-top text-sm break-words bg-white">
-              {/* vertical yellow line */}
-              <div className="relative flex flex-col gap-3 pl-4 before:absolute before:bottom-2 before:left-[5px] before:top-2 before:w-[2px] before:bg-yellow-200">
-                {item.activities.map((a, index) => (
-                  <div key={index} className="relative flex items-start gap-2">
-                    {/*yellow dot*/}
-                    <span className="absolute -left-[15px] top-[6px] h-2 w-2 rounded-full border border-yellow-500 bg-yellow-400 shrink-0" />
-                    <div>
-                      <span className="font-semibold text-gray-800">
-                        {a.time}
-                      </span>
-                      <span className="text-gray-400 mx-1.5">•</span>
-                      <span className="text-xs">{a.description}</span>
-                    </div>
-                  </div>
-                ))}
-              </div>
-            </td>
-          </tr>
-        ))}
-      </tbody>
-    </table>
-  );
-
   return (
     <div className="w-full bg-gray-100 p-8 flex flex-row flex-wrap items-start print:block print:min-h-0 print:bg-white print:p-0 justify-center content-center gap-8 overflow-y-auto print:p-0">
       <div className="w-full max-w-2xl aspect-[1/1.414] print:aspect-auto print:p-6 bg-[#fafafa] flex flex-col items-center justify-start border-[3px] border-yellow-400 rounded-2xl p-10 shadow-2xl relative print-page print:w-[210mm] print:border-none print:shadow-none print:bg-white print:rounded-none">
@@ -128,7 +85,7 @@ export default function Result() {
         </div>
 
         <div className="w-full my-4 overflow-y-auto">
-          <RenderDaysTable days={daysOnFirstPage} />
+          <ItineraryTable days={daysOnFirstPage} />
         </div>
 
       </div>
@@ -140,7 +97,7 @@ export default function Result() {
         className="w-full max-w-2xl aspect-[1/1.414] print:aspect-auto print:p-6 bg-[#fafafa] flex flex-col items-center justify-start border-[3px] border-yellow-400 rounded-2xl p-10 shadow-2xl relative print-page print:w-[210mm] print:border-none print:shadow-none print:bg-white print:rounded-none"
       >
         <div className="w-full my-4">
-          <RenderDaysTable days={pageDays} />
+          <ItineraryTable days={pageDays} />
         </div>
       </div>
     ))}
