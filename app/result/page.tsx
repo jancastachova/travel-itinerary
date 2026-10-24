@@ -1,10 +1,10 @@
 "use client";
 
 export const dynamic = "force-dynamic";
-import Link from "next/link";
 import dynamicImport from "next/dynamic";
 import ItineraryTable, { AIDay } from "../components/ItineraryTable";
 import DestinationHeader from "../components/DestinationHeader";
+import ActionButtons from "../components/ActionButtons";
 
 const Map = dynamicImport(() => import("../components/TripMap"), {
   ssr: false,
@@ -80,20 +80,7 @@ export default function Result() {
           <Map activities={acitivitiesWithinId} />
         </div>
 
-        <div className="flex flex-row gap-5 justify-center mt-auto print:hidden">
-          <Link
-            href="/questionnaire"
-            className="bg-yellow-400 text-black px-8 py-4 rounded-full hover:bg-yellow-300 transition shadow-md"
-          >
-            Plan Again
-          </Link>
-          <button
-            onClick={() => window.print()}
-            className="bg-yellow-400 text-black px-8 py-4 rounded-full hover:bg-yellow-300 transition shadow-md"
-          >
-            Download PDF
-          </button>
-        </div>
+        <ActionButtons/>
       </div>
 
     </div>
